@@ -1,5 +1,18 @@
 import {parse as parseXY} from 'xy-parser';
 
+/**
+ * Convert strings into JCAMP and add extra information
+ * @param {string} data - values to add to the file, usually a csv or tsv values
+ * @param {object} [options]
+ * @param {string} [options.title = ''] - title of the file
+ * @param {string} [options.owner = ''] - owner of the file
+ * @param {string} [options.origin = ''] - origin of the file
+ * @param {string} [options.type = ''] - type of data
+ * @param {string} [options.xUnit = ''] - units for the x axis
+ * @param {string} [options.yUnit = ''] - units for the y axis
+ * @param {object} [options.info = {}] - comments to add to the file
+ * @return {string} JCAMP of the input
+ */
 export default function (data, options = {}) {
     const {
         title = '',
