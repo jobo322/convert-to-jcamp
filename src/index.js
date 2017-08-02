@@ -11,6 +11,7 @@ import {parse as parseXY} from 'xy-parser';
  * @param {string} [options.xUnit = ''] - units for the x axis
  * @param {string} [options.yUnit = ''] - units for the y axis
  * @param {object} [options.info = {}] - comments to add to the file
+ * @param {object} [options.parser = {}] - 'xy-parser' options. arrayType = 'xyxy' is enforced
  * @return {string} JCAMP of the input
  */
 export default function (data, options = {}) {
@@ -21,10 +22,12 @@ export default function (data, options = {}) {
         type = '',
         xUnit = '',
         yUnit = '',
-        info = {}
+        info = {},
+        parser = {}
     } = options;
 
-    var lines = parseXY(data);
+    parser.arrayType = 'xyxy';
+    var lines = parseXY(data, parser);
     var firstX, lastX, firstY, lastY;
     var points = [];
 

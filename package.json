@@ -23,7 +23,12 @@
     "type": "git",
     "url": "git+https://github.com/cheminfo-js/convert-to-jcamp.git"
   },
-  "keywords": [],
+  "keywords": [
+    "jcamp",
+    "csv",
+    "tsv",
+    "converter"
+  ],
   "author": "Miguel Angel Asencio Hurtado",
   "license": "MIT",
   "bugs": {
