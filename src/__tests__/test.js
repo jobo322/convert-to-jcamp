@@ -13,15 +13,17 @@ describe('convertToJcamp', () => {
 7 8
 8 9`;
     var options = {
-      title: 'test',
-      owner: 'cheminfo',
-      origin: 'manually',
-      type: 'MASS SPECTRUM',
-      xUnit: 'M/Z',
-      yUnit: 'relative abundance',
-      info: {
-        info1: 'value1',
-        info2: 'value2'
+      meta: {
+        title: 'test',
+        owner: 'cheminfo',
+        origin: 'manually',
+        type: 'MASS SPECTRUM',
+        xUnit: 'M/Z',
+        yUnit: 'relative abundance',
+        info: {
+          info1: 'value1',
+          info2: 'value2'
+        }
       }
     };
     var jcamp = convertToJcamp(testData, options);
