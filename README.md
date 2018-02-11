@@ -12,7 +12,7 @@ Convert strings into JCAMP.
 `$ npm install --save convert-to-jcamp`
 
 ## Usage
-### From SVG
+### From text file
 ```js
 import convertToJcamp from 'convert-to-jcamp';
 import { convert } from 'jcampconverter';
