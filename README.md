@@ -12,10 +12,10 @@ Convert strings into JCAMP.
 `$ npm install --save convert-to-jcamp`
 
 ## Usage
-
+### From SVG
 ```js
 import convertToJcamp from 'convert-to-jcamp';
-import {convert} from 'jcampconverter';
+import { convert } from 'jcampconverter';
 
 const testData = `1 2
 2 3
@@ -25,7 +25,7 @@ const testData = `1 2
 6 7
 7 8
 8 9`;
-var options = {
+const options = {
     title: 'test',
     owner: 'cheminfo',
     origin: 'manually',
@@ -37,8 +37,8 @@ var options = {
         info2: 'value2'
     }
 };
-var jcamp = convertToJcamp(testData, options);
-var jcampObject = convert(jcamp);
+const jcamp = convertToJcamp(testData, options);
+const jcampObject = convert(jcamp);
 
 /* jcampObject.spectra -> [{
     data: [[
@@ -64,6 +64,33 @@ var jcampObject = convert(jcamp);
     yFactor: 1,
     yUnit: 'relative abundance'
 }]
+*/
+```
+### From Json
+```js
+import { fromJson } from '..';
+
+const data = [[1, 2], [2, 3]];
+const jcamp = fromJson(data);
+const jcampObject = convert(jcamp);
+/* jcampObject.spectra -> [{
+  data: [[
+      1, 2,
+      2, 3
+  ]],
+  dataType: '',
+  firstX: 1,
+  firstY: 2,
+  isPeaktable: true,
+  lastX: 2,
+  lastY: 3,
+  nbPoints: 2,
+  title: '',
+  xFactor: 1,
+  xUnit: '',
+  yFactor: 1,
+  yUnit: ''
+}]);
 */
 ```
 

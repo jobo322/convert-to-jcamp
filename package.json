@@ -39,18 +39,21 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
-    "cheminfo-tools": "^1.19.2",
-    "codecov": "^2.2.0",
-    "eslint": "^4.3.0",
-    "eslint-config-cheminfo": "^1.8.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "cheminfo-tools": "^1.20.2",
+    "codecov": "^2.3.1",
+    "eslint": "^4.17.0",
+    "eslint-config-cheminfo": "^1.15.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.7.0",
     "eslint-plugin-no-only-tests": "^2.0.0",
-    "jcampconverter": "^2.7.0",
+    "jcampconverter": "^2.9.2",
     "jest": "^20.0.4",
-    "npm-run-all": "^4.0.2",
+    "npm-run-all": "^4.1.2",
     "rollup": "^0.45.2"
   },
   "dependencies": {
+    "ml-xy-convert": "^1.0.0",
     "xy-parser": "^1.5.0"
   }
 }
