@@ -4,7 +4,7 @@
  * @param {object} [meta] - same metadata object format that the convertToJcamp
  * @return {string} JCAMP of the input
  */
-export function xyArray(data, meta = {}) {
+export function parser(data, meta = {}) {
   const {
     title = '',
     owner = '',

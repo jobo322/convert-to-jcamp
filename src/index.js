@@ -1,9 +1,7 @@
 import { parse as parseXY } from 'xy-parser';
+import xyConvert from 'ml-xy-convert';
 
-import { xyArray } from './xyArray';
-import { xyObject } from './xyObject';
-
-export { xyArray, xyObject };
+import { parser as parseFunction } from './parser';
 
 /**
  * Convert strings into JCAMP and add extra information
@@ -28,6 +26,17 @@ export default function convertToJcamp(data, options = {}) {
 
   parser.arrayType = 'xyxy';
   var lines = parseXY(data, parser);
-  return xyArray(lines, meta);
+  return parseFunction(lines, meta);
+}
+
+/**
+ * Parse from any supported format in ml-xy-convert
+ * @param {*} data - object or array with a set of points
+ * @param {object} [meta] - metadata object
+ * @return {string} JCAMP of the input
+ */
+export function fromJson(data, meta = {}) {
+  const parsed = xyConvert(data, { outputFormat: 'xyxyArray' });
+  return parseFunction(parsed, meta);
 }
 
