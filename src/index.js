@@ -1,7 +1,7 @@
 import { parse as parseXY } from 'xy-parser';
 import xyConvert from 'ml-xy-convert';
 
-import { parser as parseFunction } from './parser';
+import creator from './creator';
 
 /**
  * Convert strings into JCAMP and add extra information
@@ -19,14 +19,11 @@ import { parser as parseFunction } from './parser';
  * @return {string} JCAMP of the input
  */
 export default function convertToJcamp(data, options = {}) {
-  const {
-    meta = {},
-    parser = {}
-  } = options;
+  const { meta = {}, parser = {} } = options;
 
   parser.arrayType = 'xyxy';
   var lines = parseXY(data, parser);
-  return parseFunction(lines, meta);
+  return creator(lines, meta);
 }
 
 /**
@@ -37,6 +34,5 @@ export default function convertToJcamp(data, options = {}) {
  */
 export function fromJson(data, meta = {}) {
   const parsed = xyConvert(data, { outputFormat: 'xyxyArray' });
-  return parseFunction(parsed, meta);
+  return creator(parsed, meta);
 }
-
