@@ -4,14 +4,15 @@ import convertToJcamp from '..';
 
 describe('convertToJcamp', () => {
   it('check valid with jcampconverter', () => {
-    const testData = `1 2
-2 3
-3 4
-4 5
-5 6
-6 7
-7 8
-8 9`;
+    const testData = `ABCDE
+      1 2
+      2 3
+      3 4
+      4 5
+      5 6
+      6 7
+      7 8
+      8 9`;
     var options = {
       meta: {
         title: 'test',
@@ -27,24 +28,12 @@ describe('convertToJcamp', () => {
       }
     };
     var jcamp = convertToJcamp(testData, options);
-
     expect(jcamp).toMatchSnapshot();
 
     var jcampObject = convert(jcamp);
-
-
     expect(jcampObject.spectra).toEqual([
       {
-        data: [[
-          1, 2,
-          2, 3,
-          3, 4,
-          4, 5,
-          5, 6,
-          6, 7,
-          7, 8,
-          8, 9
-        ]],
+        data: [[1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9]],
         dataType: 'MASS SPECTRUM',
         firstX: 1,
         firstY: 2,
@@ -74,28 +63,22 @@ describe('convertToJcamp', () => {
     var jcamp = convertToJcamp(testData);
     var jcampObject = convert(jcamp);
 
-    expect(jcampObject.spectra).toEqual([{
-      data: [[
-        2, 3,
-        1, 2,
-        3, 4,
-        5, 16,
-        6, 7,
-        7, 8,
-        8, 9
-      ]],
-      dataType: '',
-      firstX: 1,
-      firstY: 2,
-      isPeaktable: true,
-      lastX: 8,
-      lastY: 16,
-      nbPoints: 7,
-      title: '',
-      xFactor: 1,
-      xUnit: '',
-      yFactor: 1,
-      yUnit: ''
-    }]);
+    expect(jcampObject.spectra).toEqual([
+      {
+        data: [[2, 3, 1, 2, 3, 4, 5, 16, 6, 7, 7, 8, 8, 9]],
+        dataType: '',
+        firstX: 1,
+        firstY: 2,
+        isPeaktable: true,
+        lastX: 8,
+        lastY: 16,
+        nbPoints: 7,
+        title: '',
+        xFactor: 1,
+        xUnit: '',
+        yFactor: 1,
+        yUnit: ''
+      }
+    ]);
   });
 });

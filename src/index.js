@@ -1,4 +1,4 @@
-import { parse as parseXY } from 'xy-parser';
+import { parseXY } from 'xy-parser';
 import xyConvert from 'ml-xy-convert';
 
 import creator from './creator';
@@ -19,11 +19,15 @@ import creator from './creator';
  * @return {string} JCAMP of the input
  */
 export default function convertToJcamp(data, options = {}) {
-  const { meta = {}, parser = {} } = options;
+  const { meta = {}, parserOptions = {} } = options;
 
-  parser.arrayType = 'xyxy';
-  var lines = parseXY(data, parser);
-  return creator(lines, meta);
+  parserOptions.arrayType = 'xyxy';
+  parserOptions.keepInfo = true;
+  var parsed = parseXY(data, parserOptions);
+  if (!meta.info) meta.info = {};
+  meta.info.header = parsed.info.map((i) => i.value).join('\r\n');
+  let jcamp = creator(parsed.data, meta);
+  return jcamp;
 }
 
 /**
