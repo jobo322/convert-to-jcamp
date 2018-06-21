@@ -1,9 +1,9 @@
 # convert-to-jcamp
 
-  [![NPM version][npm-image]][npm-url]
-  [![build status][travis-image]][travis-url]
-  [![Test coverage][codecov-image]][codecov-url]
-  [![npm download][download-image]][download-url]
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+[![Test coverage][codecov-image]][codecov-url]
+[![npm download][download-image]][download-url]
 
 Convert strings into JCAMP.
 
@@ -12,7 +12,9 @@ Convert strings into JCAMP.
 `$ npm install --save convert-to-jcamp`
 
 ## Usage
+
 ### From text file
+
 ```js
 import convertToJcamp from 'convert-to-jcamp';
 import { convert } from 'jcampconverter';
@@ -26,6 +28,7 @@ const testData = `1 2
 7 8
 8 9`;
 const options = {
+  meta: {
     title: 'test',
     owner: 'cheminfo',
     origin: 'manually',
@@ -33,9 +36,10 @@ const options = {
     xUnit: 'M/Z',
     yUnit: 'relative abundance',
     info: {
-        info1: 'value1',
-        info2: 'value2'
+      info1: 'value1',
+      info2: 'value2'
     }
+  }
 };
 const jcamp = convertToJcamp(testData, options);
 const jcampObject = convert(jcamp);
@@ -66,7 +70,9 @@ const jcampObject = convert(jcamp);
 }]
 */
 ```
+
 ### From Json
+
 ```js
 import { fromJson } from '..';
 
@@ -98,7 +104,7 @@ const jcampObject = convert(jcamp);
 
 ## License
 
-  [MIT](./LICENSE)
+[MIT](./LICENSE)
 
 [npm-image]: https://img.shields.io/npm/v/convert-to-jcamp.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/convert-to-jcamp
