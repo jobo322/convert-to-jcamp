@@ -25,7 +25,7 @@ export default function convertToJcamp(data, options = {}) {
   parserOptions.keepInfo = true;
   var parsed = parseXY(data, parserOptions);
   if (!meta.info) meta.info = {};
-  meta.info.header = parsed.info.map((i) => i.value).join('\r\n');
+  meta.info.header = parsed.info.map((i) => i.value).join('\n');
   let jcamp = creator(parsed.data, meta);
   return jcamp;
 }

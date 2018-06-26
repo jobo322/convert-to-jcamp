@@ -49,15 +49,16 @@ export default function creator(data, meta = {}) {
 ##FIRSTX=${firstX}
 ##LASTX=${lastX}
 ##FIRSTY=${firstY}
-##LASTY=${lastY}\r\n`;
+##LASTY=${lastY}\n`;
 
   for (const key of Object.keys(info)) {
-    header += `##$${key}=${info[key]}\r\n`;
+    header += `##$${key}=${info[key]}\n`;
   }
 
-  header += `##NPOINTS=${points.length}
-##PEAK TABLE=(XY..XY)\r\n`;
+  // we leave the header and utf8 fonts ${header.replace(/[^\t\r\n\x20-\x7F]/g, '')
 
-  return `${header.replace(/[^\t\r\n\x20-\x7F]/g, '') +
-    points.join('\r\n')}\r\n##END`;
+  return `${header}##NPOINTS=${points.length}
+##PEAK TABLE=(XY..XY)
+${points.join('\n')}
+##END`;
 }

@@ -28,6 +28,7 @@ describe('convertToJcamp', () => {
       }
     };
     var jcamp = convertToJcamp(testData, options);
+
     expect(jcamp).toMatchSnapshot();
 
     var jcampObject = convert(jcamp);
