@@ -1,5 +1,7 @@
 import { convert } from 'jcampconverter';
 
+import fs from 'fs';
+
 import convertToJcamp from '..';
 
 describe('convertToJcamp', () => {
@@ -66,14 +68,14 @@ describe('convertToJcamp', () => {
 
     expect(jcampObject.spectra).toEqual([
       {
-        data: [[2, 3, 1, 2, 3, 4, 5, 16, 6, 7, 7, 8, 8, 9]],
+        data: [[2, 3, 1, 2, 3, 4, -4, 5, 5, 16, 6, 7, 7, 8, 8, 9]],
         dataType: '',
-        firstX: 1,
+        firstX: -4,
         firstY: 2,
         isPeaktable: true,
         lastX: 8,
         lastY: 16,
-        nbPoints: 7,
+        nbPoints: 8,
         title: '',
         xFactor: 1,
         xUnit: '',
@@ -81,5 +83,15 @@ describe('convertToJcamp', () => {
         yUnit: ''
       }
     ]);
+  });
+
+  it('check big IV file', () => {
+    const testData = fs.readFileSync(`${__dirname}/iv.txt`, 'utf8');
+
+    var jcamp = convertToJcamp(testData);
+
+    var jcampObject = convert(jcamp);
+
+    expect(jcampObject.spectra[0].data[0]).toHaveLength(12944);
   });
 });

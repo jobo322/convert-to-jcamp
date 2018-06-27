@@ -14,29 +14,30 @@ export default function creator(data, meta = {}) {
     yUnit = '',
     info = {}
   } = meta;
-  var firstX, lastX, firstY, lastY;
+  let firstX = Number.MAX_VALUE;
+  let lastX = Number.MIN_VALUE;
+  let firstY = Number.MAX_VALUE;
+  let lastY = Number.MIN_VALUE;
   var points = [];
 
   for (var i = 0; i < data.length; i++) {
     if (data[i].length > 1) {
       var x = Number(data[i][0]);
       var y = Number(data[i][1]);
-      if (!firstX || (firstX > x && x > 0)) {
+      if (firstX > x) {
         firstX = x;
       }
-      if (!lastX || lastX < x) {
+      if (lastX < x) {
         lastX = x;
       }
-      if (!firstY || firstY > y) {
+      if (firstY > y) {
         firstY = y;
       }
-      if (!lastY || lastY < y) {
+      if (lastY < y) {
         lastY = y;
       }
     }
-    if (x > 0) {
-      points.push(`${x} ${y}`);
-    }
+    points.push(`${x} ${y}`);
   }
 
   var header = `##TITLE=${title}
