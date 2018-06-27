@@ -54,6 +54,6 @@
   },
   "dependencies": {
     "ml-xy-convert": "^1.0.0",
-    "xy-parser": "^2.2.1"
+    "xy-parser": "^2.2.2"
   }
 }
