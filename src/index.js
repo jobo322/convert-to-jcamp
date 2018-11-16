@@ -6,7 +6,7 @@ import creator from './creator';
 /**
  * Convert strings into JCAMP and add extra information
  * @param {string} data - values to add to the file, usually a csv or tsv values
- * @param {object} [options]
+ * @param {object} [options={}]
  * @param {string} [options.meta] - metadata of the file
  * @param {string} [options.meta.title = ''] - title of the file
  * @param {string} [options.meta.owner = ''] - owner of the file
