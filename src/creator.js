@@ -1,7 +1,7 @@
 /**
  * Parse from a xyxy data array
  * @param {Array<Array<number>>} data
- * @param {object} [meta] - same metadata object format that the convertToJcamp
+ * @param {object} [meta] - same metadata object format that the fromText
  * @return {string} JCAMP of the input
  */
 export default function creator(data, meta = {}) {

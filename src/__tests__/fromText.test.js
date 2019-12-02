@@ -2,9 +2,9 @@ import fs from 'fs';
 
 import { convert } from 'jcampconverter';
 
-import convertToJcamp from '..';
+import { fromText } from '..';
 
-describe('convertToJcamp', () => {
+describe('fromText', () => {
   it('check valid with jcampconverter', () => {
     const testData = `ABCDE
       1 2
@@ -29,7 +29,7 @@ describe('convertToJcamp', () => {
         },
       },
     };
-    let jcamp = convertToJcamp(testData, options);
+    let jcamp = fromText(testData, options);
     expect(jcamp).toMatchSnapshot();
 
     let jcampObject = JSON.parse(JSON.stringify(convert(jcamp)));
@@ -63,7 +63,7 @@ describe('convertToJcamp', () => {
 7 8
 8 9`;
 
-    let jcamp = convertToJcamp(testData);
+    let jcamp = fromText(testData);
     let jcampObject = JSON.parse(JSON.stringify(convert(jcamp)));
 
     expect(jcampObject.spectra).toStrictEqual([
@@ -88,7 +88,7 @@ describe('convertToJcamp', () => {
   it('check big IV file', () => {
     const testData = fs.readFileSync(`${__dirname}/iv.txt`, 'utf8');
 
-    let jcamp = convertToJcamp(testData);
+    let jcamp = fromText(testData);
 
     let jcampObject = convert(jcamp);
 

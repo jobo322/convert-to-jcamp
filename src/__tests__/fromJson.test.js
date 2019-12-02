@@ -1,13 +1,13 @@
 import { convert } from 'jcampconverter';
 
-import { fromJson } from '..';
+import { fromJSON } from '..';
 
 test('xxyyArray test', () => {
   const data = [
     [1, 2],
     [2, 3],
   ];
-  const jcamp = fromJson(data);
+  const jcamp = fromJSON(data);
 
   let converted = JSON.parse(JSON.stringify(convert(jcamp)));
 
@@ -35,7 +35,7 @@ test('xxyyArray test with 0', () => {
     [0, 1],
     [1, 2],
   ];
-  const jcamp = fromJson(data);
+  const jcamp = fromJSON(data);
 
   let converted = JSON.parse(JSON.stringify(convert(jcamp)));
 
@@ -60,7 +60,7 @@ test('xxyyArray test with 0', () => {
 
 test('xxyyObject test', () => {
   const data = { x: [1, 2], y: [2, 3] };
-  const jcamp = fromJson(data);
+  const jcamp = fromJSON(data);
 
   let converted = JSON.parse(JSON.stringify(convert(jcamp)));
 

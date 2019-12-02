@@ -16,7 +16,7 @@ Convert strings into JCAMP.
 ### From text file
 
 ```js
-import convertToJcamp from 'convert-to-jcamp';
+import {fromText from 'convert-to-jcamp';
 import { convert } from 'jcampconverter';
 
 const testData = `1 2
@@ -41,7 +41,7 @@ const options = {
     }
   }
 };
-const jcamp = convertToJcamp(testData, options);
+const jcamp = fromText(testData, options);
 const jcampObject = convert(jcamp);
 
 /* jcampObject.spectra -> [{
@@ -74,10 +74,13 @@ const jcampObject = convert(jcamp);
 ### From Json
 
 ```js
-import { fromJson } from '..';
+import { fromJSON } from '..';
 
-const data = [[1, 2], [2, 3]];
-const jcamp = fromJson(data);
+const data = [
+  [1, 2],
+  [2, 3]
+];
+const jcamp = fromJSON(data);
 const jcampObject = convert(jcamp);
 /* jcampObject.spectra -> [{
   data: [[

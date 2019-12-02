@@ -18,7 +18,7 @@ import creator from './creator';
  * @param {object} [options.parser = {}] - 'xy-parser' options. arrayType = 'xyxy' is enforced
  * @return {string} JCAMP of the input
  */
-export default function convertToJcamp(data, options = {}) {
+export function fromText(data, options = {}) {
   const { meta = {}, parserOptions = {} } = options;
 
   parserOptions.keepInfo = true;
@@ -36,7 +36,7 @@ export default function convertToJcamp(data, options = {}) {
  * @param {object} [meta] - metadata object
  * @return {string} JCAMP of the input
  */
-export function fromJson(data, meta = {}) {
+export function fromJSON(data, meta = {}) {
   const parsed = xyConvert(data, { outputFormat: 'xxyyObject' });
   return creator(parsed, meta);
 }

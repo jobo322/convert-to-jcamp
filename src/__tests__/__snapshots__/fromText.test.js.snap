@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`convertToJcamp check valid with jcampconverter 1`] = `
+exports[`fromText check valid with jcampconverter 1`] = `
 "##TITLE=test
 ##JCAMP-DX=4.24
 ##DATA TYPE=MASS SPECTRUM
