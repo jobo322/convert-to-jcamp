@@ -21,9 +21,9 @@ import creator from './creator';
 export default function convertToJcamp(data, options = {}) {
   const { meta = {}, parserOptions = {} } = options;
 
-  parserOptions.arrayType = 'xyxy';
   parserOptions.keepInfo = true;
-  var parsed = parseXY(data, parserOptions);
+  let parsed = parseXY(data, parserOptions);
+
   if (!meta.info) meta.info = {};
   meta.info.header = parsed.info.map((i) => i.value).join('\n');
   let jcamp = creator(parsed.data, meta);
@@ -37,6 +37,6 @@ export default function convertToJcamp(data, options = {}) {
  * @return {string} JCAMP of the input
  */
 export function fromJson(data, meta = {}) {
-  const parsed = xyConvert(data, { outputFormat: 'xyxyArray' });
+  const parsed = xyConvert(data, { outputFormat: 'xxyyObject' });
   return creator(parsed, meta);
 }

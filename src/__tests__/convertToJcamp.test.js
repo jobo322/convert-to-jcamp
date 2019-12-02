@@ -1,6 +1,6 @@
-import { convert } from 'jcampconverter';
-
 import fs from 'fs';
+
+import { convert } from 'jcampconverter';
 
 import convertToJcamp from '..';
 
@@ -15,7 +15,7 @@ describe('convertToJcamp', () => {
       6 7
       7 8
       8 9`;
-    var options = {
+    let options = {
       meta: {
         title: 'test',
         owner: 'cheminfo',
@@ -25,16 +25,16 @@ describe('convertToJcamp', () => {
         yUnit: 'relative abundance',
         info: {
           info1: 'value1',
-          info2: 'value2'
-        }
-      }
+          info2: 'value2',
+        },
+      },
     };
-    var jcamp = convertToJcamp(testData, options);
-
+    let jcamp = convertToJcamp(testData, options);
     expect(jcamp).toMatchSnapshot();
 
-    var jcampObject = convert(jcamp);
-    expect(jcampObject.spectra).toEqual([
+    let jcampObject = JSON.parse(JSON.stringify(convert(jcamp)));
+
+    expect(jcampObject.spectra).toStrictEqual([
       {
         data: [[1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9]],
         dataType: 'MASS SPECTRUM',
@@ -48,11 +48,10 @@ describe('convertToJcamp', () => {
         xFactor: 1,
         xUnit: 'M/Z',
         yFactor: 1,
-        yUnit: 'relative abundance'
-      }
+        yUnit: 'relative abundance',
+      },
     ]);
   });
-
 
   it('check with default values', () => {
     const testData = `2 3
@@ -64,10 +63,10 @@ describe('convertToJcamp', () => {
 7 8
 8 9`;
 
-    var jcamp = convertToJcamp(testData);
-    var jcampObject = convert(jcamp);
+    let jcamp = convertToJcamp(testData);
+    let jcampObject = JSON.parse(JSON.stringify(convert(jcamp)));
 
-    expect(jcampObject.spectra).toEqual([
+    expect(jcampObject.spectra).toStrictEqual([
       {
         data: [[2, 3, 1, 2, 3, 4, -4, 5, 5, 16, 6, 7, 7, 8, 8, 9]],
         dataType: '',
@@ -81,17 +80,17 @@ describe('convertToJcamp', () => {
         xFactor: 1,
         xUnit: '',
         yFactor: 1,
-        yUnit: ''
-      }
+        yUnit: '',
+      },
     ]);
   });
 
   it('check big IV file', () => {
     const testData = fs.readFileSync(`${__dirname}/iv.txt`, 'utf8');
 
-    var jcamp = convertToJcamp(testData);
+    let jcamp = convertToJcamp(testData);
 
-    var jcampObject = convert(jcamp);
+    let jcampObject = convert(jcamp);
 
     expect(jcampObject.spectra[0].data[0]).toHaveLength(12944);
   });

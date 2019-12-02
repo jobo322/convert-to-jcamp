@@ -1,6 +1,6 @@
 /**
  * Parse from a xyxy data array
- * @param {Array<Array<number>>} data - xyxy array of data
+ * @param {Array<Array<number>>} data
  * @param {object} [meta] - same metadata object format that the convertToJcamp
  * @return {string} JCAMP of the input
  */
@@ -12,35 +12,33 @@ export default function creator(data, meta = {}) {
     type = '',
     xUnit = '',
     yUnit = '',
-    info = {}
+    info = {},
   } = meta;
   let firstX = Number.MAX_VALUE;
   let lastX = Number.MIN_VALUE;
   let firstY = Number.MAX_VALUE;
   let lastY = Number.MIN_VALUE;
-  var points = [];
+  let points = [];
 
-  for (var i = 0; i < data.length; i++) {
-    if (data[i].length > 1) {
-      var x = Number(data[i][0]);
-      var y = Number(data[i][1]);
-      if (firstX > x) {
-        firstX = x;
-      }
-      if (lastX < x) {
-        lastX = x;
-      }
-      if (firstY > y) {
-        firstY = y;
-      }
-      if (lastY < y) {
-        lastY = y;
-      }
+  for (let i = 0; i < data.x.length; i++) {
+    let x = data.x[i];
+    let y = data.y[i];
+    if (firstX > x) {
+      firstX = x;
+    }
+    if (lastX < x) {
+      lastX = x;
+    }
+    if (firstY > y) {
+      firstY = y;
+    }
+    if (lastY < y) {
+      lastY = y;
     }
     points.push(`${x} ${y}`);
   }
 
-  var header = `##TITLE=${title}
+  let header = `##TITLE=${title}
 ##JCAMP-DX=4.24
 ##DATA TYPE=${type}
 ##ORIGIN=${origin}

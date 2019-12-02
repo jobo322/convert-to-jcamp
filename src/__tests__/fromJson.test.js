@@ -3,9 +3,15 @@ import { convert } from 'jcampconverter';
 import { fromJson } from '..';
 
 test('xxyyArray test', () => {
-  const data = [[1, 2], [2, 3]];
+  const data = [
+    [1, 2],
+    [2, 3],
+  ];
   const jcamp = fromJson(data);
-  expect(convert(jcamp).spectra).toEqual([
+
+  let converted = JSON.parse(JSON.stringify(convert(jcamp)));
+
+  expect(converted.spectra).toStrictEqual([
     {
       data: [[1, 2, 2, 3]],
       dataType: '',
@@ -19,15 +25,21 @@ test('xxyyArray test', () => {
       xFactor: 1,
       xUnit: '',
       yFactor: 1,
-      yUnit: ''
-    }
+      yUnit: '',
+    },
   ]);
 });
 
 test('xxyyArray test with 0', () => {
-  const data = [[0, 1], [1, 2]];
+  const data = [
+    [0, 1],
+    [1, 2],
+  ];
   const jcamp = fromJson(data);
-  expect(convert(jcamp).spectra).toEqual([
+
+  let converted = JSON.parse(JSON.stringify(convert(jcamp)));
+
+  expect(converted.spectra).toStrictEqual([
     {
       data: [[0, 1, 1, 2]],
       dataType: '',
@@ -41,15 +53,18 @@ test('xxyyArray test with 0', () => {
       xFactor: 1,
       xUnit: '',
       yFactor: 1,
-      yUnit: ''
-    }
+      yUnit: '',
+    },
   ]);
 });
 
 test('xxyyObject test', () => {
   const data = { x: [1, 2], y: [2, 3] };
   const jcamp = fromJson(data);
-  expect(convert(jcamp).spectra).toEqual([
+
+  let converted = JSON.parse(JSON.stringify(convert(jcamp)));
+
+  expect(converted.spectra).toStrictEqual([
     {
       data: [[1, 2, 2, 3]],
       dataType: '',
@@ -63,7 +78,7 @@ test('xxyyObject test', () => {
       xFactor: 1,
       xUnit: '',
       yFactor: 1,
-      yUnit: ''
-    }
+      yUnit: '',
+    },
   ]);
 });
