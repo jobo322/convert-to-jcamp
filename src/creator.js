@@ -14,10 +14,10 @@ export default function creator(data, meta = {}) {
     yUnit = '',
     info = {},
   } = meta;
-  let firstX = Number.MAX_VALUE;
-  let lastX = Number.MIN_VALUE;
-  let firstY = Number.MAX_VALUE;
-  let lastY = Number.MIN_VALUE;
+  let firstX = Number.POSITIVE_INFINITY;
+  let lastX = Number.NEGATIVE_INFINITY;
+  let firstY = Number.POSITIVE_INFINITY;
+  let lastY = Number.NEGATIVE_INFINITY;
   let points = [];
 
   for (let i = 0; i < data.x.length; i++) {
