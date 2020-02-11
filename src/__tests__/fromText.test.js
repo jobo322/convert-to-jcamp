@@ -7,7 +7,7 @@ import { fromText } from '..';
 describe('fromText', () => {
   it('check valid with jcampconverter', () => {
     const testData = `ABCDE
-      1 2
+      -1 2
       2 3
       3 4
       4 5
@@ -30,15 +30,16 @@ describe('fromText', () => {
       },
     };
     let jcamp = fromText(testData, options);
+
     expect(jcamp).toMatchSnapshot();
 
     let jcampObject = JSON.parse(JSON.stringify(convert(jcamp)));
 
     expect(jcampObject.spectra).toStrictEqual([
       {
-        data: [[1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9]],
+        data: [[-1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9]],
         dataType: 'MASS SPECTRUM',
-        firstX: 1,
+        firstX: -1,
         firstY: 2,
         isPeaktable: true,
         lastX: 8,

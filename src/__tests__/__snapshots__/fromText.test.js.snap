@@ -8,7 +8,7 @@ exports[`fromText check valid with jcampconverter 1`] = `
 ##OWNER=cheminfo
 ##XUNITS=M/Z
 ##YUNITS=relative abundance
-##FIRSTX=1
+##FIRSTX=-1
 ##LASTX=8
 ##FIRSTY=2
 ##LASTY=9
@@ -17,7 +17,7 @@ exports[`fromText check valid with jcampconverter 1`] = `
 ##$header=ABCDE
 ##NPOINTS=8
 ##PEAK TABLE=(XY..XY)
-1 2
+-1 2
 2 3
 3 4
 4 5
