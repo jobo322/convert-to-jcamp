@@ -5,7 +5,6 @@ import { fromJSON } from '..';
 test('xxyyObject test', () => {
   const data = { x: [1, 2], y: [2, 3] };
   const jcamp = fromJSON(data);
-
   let converted = JSON.parse(JSON.stringify(convert(jcamp))).flatten[0];
 
   expect(converted).toStrictEqual({
