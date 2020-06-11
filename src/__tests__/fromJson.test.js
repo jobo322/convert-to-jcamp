@@ -11,8 +11,8 @@ test('xxyyObject test', () => {
   expect(converted).toStrictEqual({
     spectra: [
       {
-        xUnit: '',
-        yUnit: '',
+        xUnits: '',
+        yUnits: '',
         firstX: 1,
         lastX: 2,
         firstY: 2,

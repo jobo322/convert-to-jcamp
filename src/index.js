@@ -12,8 +12,8 @@ import creatorNtuples from './creatorNtuples';
  * @param {string} [options.info.owner = ''] - owner of the file
  * @param {string} [options.info.origin = ''] - origin of the file
  * @param {string} [options.info.dataType = ''] - type of data
- * @param {string} [options.info.xUnit = ''] - units for the x axis
- * @param {string} [options.info.yUnit = ''] - units for the y axis
+ * @param {string} [options.info.xUnits = ''] - units for the x axis
+ * @param {string} [options.info.yUnits = ''] - units for the y axis
  * @param {object} [options.meta = {}] - comments to add to the file
  * @param {object} [options.parser = {}] - 'xy-parser' options. arrayType = 'xyxy' is enforced
  * @return {string} JCAMP of the input
@@ -39,8 +39,8 @@ export function fromText(data, options = {}) {
  * @param {string} [options.info.owner = ''] - owner of the file
  * @param {string} [options.info.origin = ''] - origin of the file
  * @param {string} [options.info.dataType = ''] - type of data
- * @param {string} [options.info.xUnit = ''] - units for the x axis for variables===undefined
- * @param {string} [options.info.yUnit = ''] - units for the y axis for variables===undefined
+ * @param {string} [options.info.xUnits = ''] - units for the x axis for variables===undefined
+ * @param {string} [options.info.yUnits = ''] - units for the y axis for variables===undefined
  * @param {object} [options.meta = {}] - comments to add to the file
 
  * @return {string} JCAMP of the input
