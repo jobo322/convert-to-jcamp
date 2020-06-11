@@ -1,3 +1,22 @@
+# [3.0.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v2.0.1...v3.0.0) (2020-06-11)
+
+
+### Features
+
+* meta options for meta information ([df7996f](https://github.com/cheminfo-js/convert-to-jcamp/commit/df7996fa9323e9b837fb7c0c2c4d1367855d27fd))
+* rename type to dataType ([54949fb](https://github.com/cheminfo-js/convert-to-jcamp/commit/54949fbc028c37b02ad770bcf91bc278272efad8))
+
+
+### BREAKING CHANGES
+
+* The options contains now 2 fields
+* info: contains general information like title, dataType
+* meta: contains meta information that will end up as '$' labeled records
+* In order to respect the name in the final jcamp the
+parameter `type` has been renamed to `dataType`
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v0.2.0...v1.0.0) (2018-02-12)
 
