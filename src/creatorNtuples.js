@@ -1,5 +1,5 @@
-import minFct from 'ml-array-min';
 import maxFct from 'ml-array-max';
+import minFct from 'ml-array-min';
 
 /**
  * Parse from a xyxy data array
