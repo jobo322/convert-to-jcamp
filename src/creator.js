@@ -4,16 +4,17 @@
  * @param {object} [meta] - same metadata object format that the fromText
  * @return {string} JCAMP of the input
  */
-export default function creator(data, meta = {}) {
+export default function creator(data, options = {}) {
+  const { meta = {}, info = {} } = options;
+
   const {
     title = '',
     owner = '',
     origin = '',
-    type = '',
+    dataType = '',
     xUnit = '',
     yUnit = '',
-    info = {},
-  } = meta;
+  } = info;
   let firstX = Number.POSITIVE_INFINITY;
   let lastX = Number.NEGATIVE_INFINITY;
   let firstY = Number.POSITIVE_INFINITY;
@@ -40,7 +41,7 @@ export default function creator(data, meta = {}) {
 
   let header = `##TITLE=${title}
 ##JCAMP-DX=4.24
-##DATA TYPE=${type}
+##DATA TYPE=${dataType}
 ##ORIGIN=${origin}
 ##OWNER=${owner}
 ##XUNITS=${xUnit}
@@ -50,8 +51,8 @@ export default function creator(data, meta = {}) {
 ##FIRSTY=${firstY}
 ##LASTY=${lastY}\n`;
 
-  for (const key of Object.keys(info)) {
-    header += `##$${key}=${info[key]}\n`;
+  for (const key of Object.keys(meta)) {
+    header += `##$${key}=${meta[key]}\n`;
   }
 
   // we leave the header and utf8 fonts ${header.replace(/[^\t\r\n\x20-\x7F]/g, '')
