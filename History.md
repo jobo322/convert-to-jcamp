@@ -1,3 +1,20 @@
+# [3.1.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v3.0.0...v3.1.0) (2020-06-11)
+
+
+### Bug Fixes
+
+* update name xUnits and yUnits ([fe61275](https://github.com/cheminfo-js/convert-to-jcamp/commit/fe612753da6690137af0ea8a7da6591f72537170))
+
+
+### BREAKING CHANGES
+
+* The parameters name where changed in order to reflect correct
+xUnits and yUnits LDR
+* xUnit -> xUnits
+* yUnit -> yUnits
+
+
+
 # [3.0.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v2.0.1...v3.0.0) (2020-06-11)
 
 
