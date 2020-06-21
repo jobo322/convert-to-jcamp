@@ -1,3 +1,12 @@
+## [3.1.1](https://github.com/cheminfo-js/convert-to-jcamp/compare/v3.1.0...v3.1.1) (2020-06-21)
+
+
+### Bug Fixes
+
+* hard coded var names in ntuple ([d246301](https://github.com/cheminfo-js/convert-to-jcamp/commit/d24630137c13fbc3b42aea07ab5004ed92430390))
+
+
+
 # [3.1.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v3.0.0...v3.1.0) (2020-06-11)
 
 
