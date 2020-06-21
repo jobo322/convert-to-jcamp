@@ -43,18 +43,20 @@ export default function creatorNtuples(data, options) {
 ##JCAMP-DX=6.00
 ##DATA TYPE=${dataType}
 ##ORIGIN=${origin}
-##OWNER=${owner}
+##OWNER=${owner}\n`;
+
+  for (const key of Object.keys(meta)) {
+    header += `##$${key}=${meta[key]}\n`;
+  }
+
+  header += `
 ##NTUPLES= ${dataType}
-##VAR_NAME=  Weight,        Temperature,     Time
+##VAR_NAME=  ${varName.join()}
 ##SYMBOL=    ${symbol.join()}
 ##VAR_TYPE=  ${varType.join()}
 ##VAR_DIM=   ${varDim.join()}
 ##UNITS=     ${units.join()}
 ##PAGE= N=1\n`;
-
-  for (const key of Object.keys(meta)) {
-    header += `##$${key}=${meta[key]}\n`;
-  }
 
   header += `##DATA TABLE= (${symbol.join('')}..${symbol.join('')}), PEAKS\n`;
 

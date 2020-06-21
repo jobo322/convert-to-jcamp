@@ -11,7 +11,7 @@ test('createJSON Ntuples', () => {
   const variables = {
     x: { varName: 'x value', units: 'x unit' },
     y: { varName: 'y value', units: 'y unit' },
-    t: { varName: 't value', units: 'z unit' },
+    t: { varName: 't value', units: 't unit' },
   };
 
   const jcamp = fromJSON(data, {
@@ -40,25 +40,25 @@ test('createJSON Ntuples', () => {
 
   expect(converted.spectra[0].variables).toStrictEqual({
     x: {
-      varname: 'Weight',
+      varname: 'x value',
       symbol: 'X',
       vartype: 'INDEPENDENT',
       vardim: 4,
       units: 'x unit',
     },
     y: {
-      varname: 'Temperature',
+      varname: 'y value',
       symbol: 'Y',
       vartype: 'DEPENDENT',
       vardim: 4,
       units: 'y unit',
     },
     t: {
-      varname: 'Time',
+      varname: 't value',
       symbol: 'T',
       vartype: 'DEPENDENT',
       vardim: 4,
-      units: 'z unit',
+      units: 't unit',
     },
   });
 });
