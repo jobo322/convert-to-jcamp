@@ -1,3 +1,12 @@
+## [4.1.1](https://github.com/cheminfo-js/convert-to-jcamp/compare/v4.1.0...v4.1.1) (2020-06-24)
+
+
+### Bug Fixes
+
+* varName to name and extra space ([318ff9b](https://github.com/cheminfo-js/convert-to-jcamp/commit/318ff9b0e143922db7d076f0bb56ec58acb26de2))
+
+
+
 # [4.1.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v4.0.1...v4.1.0) (2020-06-24)
 
 
