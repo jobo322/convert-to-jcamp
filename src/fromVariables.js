@@ -27,14 +27,14 @@ export function fromVariables(variables = {}, options = {}) {
     keys.includes('y') &&
     !forceNtuples
   ) {
-    let x = variables.x;
+    let x = variables.x || variables.X;
     let xLabel = x.label || x.varName || 'x';
 
     jcampOptions.info.xUnits = xLabel.includes(variables.x.units)
       ? xLabel
       : `${xLabel} [${variables.x.units}]`;
 
-    let y = variables.y;
+    let y = variables.y || variables.Y;
     let yLabel = y.label || y.varName || 'y';
 
     jcampOptions.info.yUnits = yLabel.includes(variables.y.units)
