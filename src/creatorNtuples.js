@@ -28,7 +28,7 @@ export default function creatorNtuples(variables, options) {
     const key = keys[i];
     let variable = variables[key];
 
-    let name = variable.label && variable.label.replace(/\[.*/, '');
+    let name = variable.label && variable.label.replace(/ *\[.*/, '');
     let unit = variable.label && variable.label.replace(/.*\[(.*)\].*/, '$1');
 
     symbol.push(variable.symbol || key);

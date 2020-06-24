@@ -115,8 +115,8 @@ describe('fromVariables', () => {
 
   it('x / y variables no force', () => {
     const variables = {
-      x: { data: [1, 2, 3, 4], varName: 'x value', units: 'x unit' },
-      y: { data: [2, 3, 4, 5], varName: 'y value', units: 'y unit' },
+      x: { data: [1, 2, 3, 4], name: 'x value', units: 'x unit' },
+      y: { data: [2, 3, 4, 5], name: 'y value', units: 'y unit' },
     };
 
     const jcamp = fromVariables(variables, {
