@@ -1,3 +1,17 @@
+# [4.0.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v3.1.1...v4.0.0) (2020-06-24)
+
+
+### Bug Fixes
+
+* allow lowercase or uppercase variables ([b602e51](https://github.com/cheminfo-js/convert-to-jcamp/commit/b602e51a3ceb967f0c6db8e9af89d7b19e13ad6c))
+
+
+### Features
+
+* add fromVariables ([b20e667](https://github.com/cheminfo-js/convert-to-jcamp/commit/b20e6678d1cde72c4c07cbcb42b9e651f827d62f))
+
+
+
 ## [3.1.1](https://github.com/cheminfo-js/convert-to-jcamp/compare/v3.1.0...v3.1.1) (2020-06-21)
 
 
