@@ -1,3 +1,12 @@
+# [4.1.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v4.0.1...v4.1.0) (2020-06-24)
+
+
+### Features
+
+* deal with label property in variable ([21eea52](https://github.com/cheminfo-js/convert-to-jcamp/commit/21eea52537234dbc9b5c6401b303a19aaab7a9f9))
+
+
+
 ## [4.0.1](https://github.com/cheminfo-js/convert-to-jcamp/compare/v4.0.0...v4.0.1) (2020-06-24)
 
 
