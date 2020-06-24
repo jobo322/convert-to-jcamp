@@ -1,3 +1,12 @@
+## [4.0.1](https://github.com/cheminfo-js/convert-to-jcamp/compare/v4.0.0...v4.0.1) (2020-06-24)
+
+
+### Bug Fixes
+
+* properties of variables are lowercase ([efa700d](https://github.com/cheminfo-js/convert-to-jcamp/commit/efa700d16dd8e64a59c09d6522014d9377e593e4))
+
+
+
 # [4.0.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v3.1.1...v4.0.0) (2020-06-24)
 
 
