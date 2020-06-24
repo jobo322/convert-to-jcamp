@@ -1,10 +1,19 @@
 /**
- * Parse from a xyxy data array
- * @param {Array<Array<number>>} data
- * @param {object} [meta] - same metadata object format that the fromText
+ * Create a jcamp
+ * @param {object} data - object of array
+ * @param {object} [options={}] - metadata object
+ * @param {string} [options.info={}] - metadata of the file
+ * @param {string} [options.info.title = ''] - title of the file
+ * @param {string} [options.info.owner = ''] - owner of the file
+ * @param {string} [options.info.origin = ''] - origin of the file
+ * @param {string} [options.info.dataType = ''] - type of data
+ * @param {string} [options.info.xUnits = ''] - units for the x axis for variables===undefined
+ * @param {string} [options.info.yUnits = ''] - units for the y axis for variables===undefined
+ * @param {object} [options.meta = {}] - comments to add to the file
+
  * @return {string} JCAMP of the input
  */
-export default function creator(data, options = {}) {
+export function fromJSON(data, options = {}) {
   const { meta = {}, info = {} } = options;
 
   const {

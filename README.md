@@ -55,6 +55,27 @@ const data = {
 const jcamp = fromJSON(data, {});
 ```
 
+### From Variables
+
+```js
+const variables = {
+  x: { data: [1, 2, 3, 4], name: 'x value', units: 'x unit' },
+  y: { data: [2, 3, 4, 5], name: 'y value', units: 'y unit' },
+};
+
+const jcamp = fromVariables(variables, {
+  forceNtuples: true,
+  meta: {
+    meta1: 'value1',
+    meta2: 'value2',
+  },
+  info: {
+    title: 'Hello world',
+    dataType: 'TEST',
+  },
+});
+```
+
 ## [API Documentation](https://cheminfo-js.github.io/convert-to-jcamp/)
 
 ## License

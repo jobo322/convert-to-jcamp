@@ -3,12 +3,12 @@ import minFct from 'ml-array-min';
 
 /**
  * Parse from a xyxy data array
- * @param {Array<Array<number>>} data
+ * @param {Array<Array<number>>} variables
  * @param {object} [meta] - same metadata object format that the fromText
  * @return {string} JCAMP of the input
  */
-export default function creatorNtuples(data, options) {
-  const { variables, meta = {}, info = {} } = options;
+export default function creatorNtuples(variables, options) {
+  const { meta = {}, info = {} } = options;
 
   const { title = '', owner = '', origin = '', dataType = '' } = info;
 
@@ -27,15 +27,15 @@ export default function creatorNtuples(data, options) {
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     let variable = variables[key];
-    symbol.push(key.toUpperCase());
-    varName.push(variable.varName || key);
-    varDim.push(data[key].length);
+    symbol.push(key);
+    varName.push(variable.name || key);
+    varDim.push(variables[key].data.length);
     varType.push(i === 0 ? 'INDEPENDENT' : 'DEPENDENT');
     units.push(variable.units || '');
-    first.push(data[key][0]);
-    last.push(data[key][data[key].length - 1]);
-    min.push(minFct(data[key]));
-    max.push(maxFct(data[key]));
+    first.push(variables[key][0]);
+    last.push(variables[key][variables[key].length - 1]);
+    min.push(minFct(variables[key].data));
+    max.push(maxFct(variables[key].data));
     factor.push(1);
   }
 
@@ -49,8 +49,7 @@ export default function creatorNtuples(data, options) {
     header += `##$${key}=${meta[key]}\n`;
   }
 
-  header += `
-##NTUPLES= ${dataType}
+  header += `##NTUPLES= ${dataType}
 ##VAR_NAME=  ${varName.join()}
 ##SYMBOL=    ${symbol.join()}
 ##VAR_TYPE=  ${varType.join()}
@@ -60,10 +59,10 @@ export default function creatorNtuples(data, options) {
 
   header += `##DATA TABLE= (${symbol.join('')}..${symbol.join('')}), PEAKS\n`;
 
-  for (let i = 0; i < data[keys[0]].length; i++) {
+  for (let i = 0; i < variables[keys[0]].data.length; i++) {
     let point = [];
     for (let key of keys) {
-      point.push(data[key][i]);
+      point.push(variables[key].data[i]);
     }
     header += `${point.join('\t')}\n`;
   }

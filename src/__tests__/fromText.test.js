@@ -30,7 +30,6 @@ describe('fromText', () => {
       },
     };
     let jcamp = fromText(testData, options);
-
     expect(jcamp).toMatchSnapshot();
 
     let jcampObject = JSON.parse(JSON.stringify(convert(jcamp))).flatten[0];
