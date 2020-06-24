@@ -3,11 +3,11 @@ import { convert } from 'jcampconverter';
 import { fromVariables } from '..';
 
 describe('fromVariables', () => {
-  it('3 variables', () => {
+  it.only('3 variables', () => {
     const variables = {
-      X: { data: [1, 2, 3, 4], name: 'x value', units: 'x unit' },
-      Y: { data: [2, 3, 4, 5], name: 'y value', units: 'y unit' },
-      T: { data: [3, 4, 5, 6], name: 't value', units: 't unit' },
+      x: { data: [1, 2, 3, 4], symbol: 'X', name: 'x value', units: 'x unit' },
+      y: { data: [2, 3, 4, 5], symbol: 'Y', name: 'y value', units: 'y unit' },
+      z: { data: [3, 4, 5, 6], symbol: 'T', name: 't value', units: 't unit' },
     };
 
     const jcamp = fromVariables(variables, {
@@ -28,13 +28,13 @@ describe('fromVariables', () => {
     expect(converted.meta).toStrictEqual({ meta1: 'value1', meta2: 'value2' });
 
     expect(converted.spectra[0].data).toStrictEqual({
-      X: [1, 2, 3, 4],
-      Y: [2, 3, 4, 5],
-      T: [3, 4, 5, 6],
+      x: [1, 2, 3, 4],
+      y: [2, 3, 4, 5],
+      t: [3, 4, 5, 6],
     });
 
     expect(converted.spectra[0].variables).toStrictEqual({
-      X: {
+      x: {
         name: 'x value',
         symbol: 'X',
         type: 'INDEPENDENT',
@@ -42,7 +42,7 @@ describe('fromVariables', () => {
         units: 'x unit',
         data: [1, 2, 3, 4],
       },
-      Y: {
+      y: {
         name: 'y value',
         symbol: 'Y',
         type: 'DEPENDENT',
@@ -50,7 +50,7 @@ describe('fromVariables', () => {
         units: 'y unit',
         data: [2, 3, 4, 5],
       },
-      T: {
+      t: {
         name: 't value',
         symbol: 'T',
         type: 'DEPENDENT',

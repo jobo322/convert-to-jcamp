@@ -27,7 +27,7 @@ export default function creatorNtuples(variables, options) {
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     let variable = variables[key];
-    symbol.push(key);
+    symbol.push(variable.symbol || key);
     varName.push(variable.name || key);
     varDim.push(variables[key].data.length);
     varType.push(i === 0 ? 'INDEPENDENT' : 'DEPENDENT');
