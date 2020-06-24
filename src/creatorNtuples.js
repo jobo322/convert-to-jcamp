@@ -27,11 +27,15 @@ export default function creatorNtuples(variables, options) {
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     let variable = variables[key];
+
+    let name = variable.label && variable.label.replace(/\[.*/, '');
+    let unit = variable.label && variable.label.replace(/.*\[(.*)\].*/, '$1');
+
     symbol.push(variable.symbol || key);
-    varName.push(variable.name || key);
+    varName.push(variable.name || name || key);
     varDim.push(variables[key].data.length);
     varType.push(i === 0 ? 'INDEPENDENT' : 'DEPENDENT');
-    units.push(variable.units || '');
+    units.push(variable.units || unit || '');
     first.push(variables[key][0]);
     last.push(variables[key][variables[key].length - 1]);
     min.push(minFct(variables[key].data));

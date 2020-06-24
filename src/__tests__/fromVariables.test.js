@@ -61,6 +61,58 @@ describe('fromVariables', () => {
     });
   });
 
+  it('3 variables with label', () => {
+    const variables = {
+      x: { data: [1, 2, 3, 4], symbol: 'X', label: 'x value [x unit]' },
+      y: { data: [2, 3, 4, 5], symbol: 'Y', label: 'y value [y unit]' },
+      z: { data: [3, 4, 5, 6], symbol: 'T', label: 't value [t unit]' },
+    };
+
+    const jcamp = fromVariables(variables, {
+      meta: {
+        meta1: 'value1',
+        meta2: 'value2',
+      },
+      info: {
+        title: 'Hello world',
+        dataType: 'TEST',
+      },
+    });
+
+    let converted = JSON.parse(
+      JSON.stringify(convert(jcamp, { keepRecordsRegExp: /^\$.*/ })),
+    ).flatten[0];
+
+    expect(converted.meta).toStrictEqual({ meta1: 'value1', meta2: 'value2' });
+
+    expect(converted.spectra[0].variables).toStrictEqual({
+      x: {
+        name: 'x value',
+        units: 'x unit',
+        symbol: 'X',
+        type: 'INDEPENDENT',
+        dim: 4,
+        data: [1, 2, 3, 4],
+      },
+      y: {
+        name: 'y value',
+        units: 'y unit',
+        symbol: 'Y',
+        type: 'DEPENDENT',
+        dim: 4,
+        data: [2, 3, 4, 5],
+      },
+      t: {
+        name: 't value',
+        units: 't unit',
+        symbol: 'T',
+        type: 'DEPENDENT',
+        dim: 4,
+        data: [3, 4, 5, 6],
+      },
+    });
+  });
+
   it('x / y variables no force', () => {
     const variables = {
       x: { data: [1, 2, 3, 4], varName: 'x value', units: 'x unit' },
