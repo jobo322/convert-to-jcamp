@@ -3,7 +3,7 @@ import { convert } from 'jcampconverter';
 import { fromVariables } from '..';
 
 describe('fromVariables', () => {
-  it.only('3 variables', () => {
+  it('3 variables', () => {
     const variables = {
       x: { data: [1, 2, 3, 4], symbol: 'X', name: 'x value', units: 'x unit' },
       y: { data: [2, 3, 4, 5], symbol: 'Y', name: 'y value', units: 'y unit' },
