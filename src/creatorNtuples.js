@@ -34,7 +34,14 @@ export default function creatorNtuples(variables, options) {
     symbol.push(variable.symbol || key);
     varName.push(variable.name || name || key);
     varDim.push(variables[key].data.length);
-    varType.push(i === 0 ? 'INDEPENDENT' : 'DEPENDENT');
+
+    varType.push(
+      variable.type
+        ? variable.type.toUpperCase()
+        : i === 0
+        ? 'INDEPENDENT'
+        : 'DEPENDENT',
+    );
     units.push(variable.units || unit || '');
     first.push(variables[key][0]);
     last.push(variables[key][variables[key].length - 1]);
