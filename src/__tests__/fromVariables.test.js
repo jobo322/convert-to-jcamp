@@ -151,7 +151,7 @@ describe('fromVariables', () => {
     });
   });
 
-  it('x / y variables no force variable', () => {
+  it('x / y variables, forceNtuples', () => {
     const variables = {
       x: { data: [1, 2, 3, 4], name: 'x value', units: 'x unit' },
       y: { data: [2, 3, 4, 5], name: 'y value', units: 'y unit' },
