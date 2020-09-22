@@ -59,7 +59,12 @@ const jcamp = fromJSON(data, {});
 
 ```js
 const variables = {
-  x: { data: [1, 2, 3, 4], name: 'x value', units: 'x unit' },
+  x: { 
+    data: [1, 2, 3, 4],
+    name: 'x value',
+    units: 'x unit',
+    type: 'INDEPENDENT',
+  },
   y: { data: [2, 3, 4, 5], name: 'y value', units: 'y unit' },
 };
 
