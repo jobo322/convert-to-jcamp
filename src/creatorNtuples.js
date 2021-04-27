@@ -8,7 +8,7 @@ import minFct from 'ml-array-min';
  * @return {string} JCAMP of the input
  */
 export default function creatorNtuples(variables, options) {
-  const { cheminfo = {}, meta = {}, info = {} } = options;
+  const { meta = {}, info = {} } = options;
 
   const { title = '', owner = '', origin = '', dataType = '' } = info;
 
@@ -56,11 +56,11 @@ export default function creatorNtuples(variables, options) {
 ##ORIGIN=${origin}
 ##OWNER=${owner}\n`;
 
-  for (const key of Object.keys(meta)) {
-    header += `##$${key}=${meta[key]}\n`;
-  }
-  if (cheminfo.meta) {
-    header += `##$ORG.CHEMINFO.META=${JSON.stringify(cheminfo.meta)}\n`;
+  for (const key in meta) {
+    header +=
+      key.toLowerCase() === 'cheminfo'
+        ? `##$${key}=${JSON.stringify(meta[key])}\n`
+        : `##$${key}=${meta[key]}\n`;
   }
 
   header += `##NTUPLES= ${dataType}
