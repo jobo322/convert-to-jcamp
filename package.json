@@ -10,8 +10,6 @@
   ],
   "scripts": {
     "build": "rollup -c && cheminfo build",
-    "build-doc": "cheminfo doc",
-    "publish-doc": "cheminfo doc --publish",
     "eslint": "eslint src",
     "eslint-fix": "npm run eslint -- --fix",
     "prepublish": "rollup -c",
