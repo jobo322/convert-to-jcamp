@@ -289,18 +289,19 @@ describe('fromVariables', () => {
         meta1: 'value1',
         meta2: 'value2',
       },
+      cheminfo: {
+        meta: { ab: 1, cd: 'b' },
+      },
       info: {
         title: 'Hello world',
         dataType: 'TEST',
       },
     });
-
     let converted = JSON.parse(
       JSON.stringify(convert(jcamp, { keepRecordsRegExp: /^\$.*/ })),
     ).flatten[0];
-
-    expect(converted.meta).toStrictEqual({ meta1: 'value1', meta2: 'value2' });
-
+    expect(converted.meta).toMatchObject({ meta1: 'value1', meta2: 'value2' });
+    expect(converted.cheminfo.meta).toStrictEqual({ ab: 1, cd: 'b' });
     expect(converted.spectra[0]).toStrictEqual({
       page: 'N=1',
       pageValue: 1,
