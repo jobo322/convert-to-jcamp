@@ -1,3 +1,16 @@
+## [4.3.0](https://github.com/cheminfo-js/convert-to-jcamp/compare/v4.1.1...v4.3.0) (2021-04-27)
+
+
+### Features
+
+* add cheminfo.meta options saved in ORG.CHEMINFO.META LDR ([762d7d5](https://github.com/cheminfo-js/convert-to-jcamp/commit/762d7d5655b375b4b6a21ae3536a058fa67f2047))
+* allow to specify variable type (dependent / independent) ([b2079ef](https://github.com/cheminfo-js/convert-to-jcamp/commit/b2079ef1f9512bba7eee749f086f939986e5a26a))
+
+
+### Bug Fixes
+
+* add testcases for ORG.CHEMINFO.META ([474cfe8](https://github.com/cheminfo-js/convert-to-jcamp/commit/474cfe8ba58555e04e2191fb4cf8ade32ff31950))
+
 ## [4.1.1](https://github.com/cheminfo-js/convert-to-jcamp/compare/v4.1.0...v4.1.1) (2020-06-24)
 
 
