@@ -10,11 +10,13 @@
  * @param {string} [options.info.xUnits = ''] - units for the x axis for variables===undefined
  * @param {string} [options.info.yUnits = ''] - units for the y axis for variables===undefined
  * @param {object} [options.meta = {}] - comments to add to the file
+ * @param {object} [options.cheminfo={}]
+ * @param {object} [options.cheminfo.meta] - a JSON that will be saved in the LDR '##$ORG.CHEMINFO.META'
 
  * @return {string} JCAMP of the input
  */
 export function fromJSON(data, options = {}) {
-  const { meta = {}, info = {} } = options;
+  const { meta = {}, info = {}, cheminfo = {} } = options;
 
   const {
     title = '',
@@ -62,6 +64,9 @@ export function fromJSON(data, options = {}) {
 
   for (const key of Object.keys(meta)) {
     header += `##$${key}=${meta[key]}\n`;
+  }
+  if (cheminfo.meta) {
+    header += `##$ORG.CHEMINFO.META=${JSON.stringify(cheminfo.meta)}\n`;
   }
 
   // we leave the header and utf8 fonts ${header.replace(/[^\t\r\n\x20-\x7F]/g, '')

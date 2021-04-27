@@ -37,8 +37,8 @@ const options = {
   },
   meta: {
     info1: 'value1',
-    info2: 'value2'
-  }
+    info2: 'value2',
+  },
 };
 const jcamp = fromText(testData, options);
 ```
@@ -50,7 +50,7 @@ import { fromJSON } from '..';
 
 const data = {
   x: [1, 2],
-  y: [2, 3]
+  y: [2, 3],
 };
 const jcamp = fromJSON(data, {});
 ```
@@ -59,7 +59,7 @@ const jcamp = fromJSON(data, {});
 
 ```js
 const variables = {
-  x: { 
+  x: {
     data: [1, 2, 3, 4],
     name: 'x value',
     units: 'x unit',
@@ -77,6 +77,9 @@ const jcamp = fromVariables(variables, {
   info: {
     title: 'Hello world',
     dataType: 'TEST',
+  },
+  cheminfo: {
+    meta: { ab: 1, cd: 'a' }, // the cheminfo.meta is stringify and saved in ##$ORG.CHEMINFO.META LDR
   },
 });
 ```

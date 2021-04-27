@@ -13,11 +13,12 @@ import { fromJSON } from './fromJSON';
  * @param {object} [options.forceNtuples = false] - force the ntuples format even if there is only x and y variables
  */
 export function fromVariables(variables = {}, options = {}) {
-  const { info, meta, forceNtuples } = options;
+  const { info, meta, cheminfo, forceNtuples } = options;
 
   let jcampOptions = {
     info,
     meta,
+    cheminfo,
   };
 
   let keys = Object.keys(variables).map((key) => key.toLowerCase());
