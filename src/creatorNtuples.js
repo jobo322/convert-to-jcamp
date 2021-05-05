@@ -58,7 +58,7 @@ export default function creatorNtuples(variables, options) {
 
   for (const key in meta) {
     header +=
-      key.toLowerCase() === 'cheminfo'
+      typeof meta[key] === 'object'
         ? `##$${key}=${JSON.stringify(meta[key])}\n`
         : `##$${key}=${meta[key]}\n`;
   }

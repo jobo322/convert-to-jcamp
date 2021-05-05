@@ -288,7 +288,7 @@ describe('fromVariables', () => {
       meta: {
         meta1: 'value1',
         meta2: 'value2',
-        cheminfo: { ab: 1, cd: 'b' },
+        abcd: { ab: 1, cd: 'b' },
       },
       info: {
         title: 'Hello world',
@@ -301,7 +301,7 @@ describe('fromVariables', () => {
     expect(converted.meta).toStrictEqual({
       meta1: 'value1',
       meta2: 'value2',
-      cheminfo: { ab: 1, cd: 'b' },
+      abcd: '{"ab":1,"cd":"b"}',
     });
     expect(converted.spectra[0]).toStrictEqual({
       page: 'N=1',
