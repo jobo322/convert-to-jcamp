@@ -12,10 +12,10 @@ Convert strings into JCAMP.
     Maintained by <a href="https://www.zakodium.com">Zakodium</a>
   </p>
 
-  [![NPM version][npm-image]][npm-url]
-  [![build status][travis-image]][travis-url]
-  [![Test coverage][codecov-image]][codecov-url]
-  [![npm download][download-image]][download-url]
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+[![Test coverage][codecov-image]][codecov-url]
+[![npm download][download-image]][download-url]
 
 </h3>
 
@@ -44,8 +44,8 @@ const options = {
     owner: 'cheminfo',
     origin: 'manually',
     type: 'MASS SPECTRUM',
-    xUnit: 'M/Z',
-    yUnit: 'relative abundance',
+    xUnits: 'M/Z',
+    yUnits: 'relative abundance',
   },
   meta: {
     info1: 'value1',
