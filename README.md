@@ -96,7 +96,7 @@ const jcamp = fromVariables(variables, {
 });
 ```
 
-## [API Documentation](https://cheminfo-js.github.io/convert-to-jcamp/)
+## [API Documentation](https://cheminfo.github.io/convert-to-jcamp/)
 
 ## License
 
@@ -104,9 +104,9 @@ const jcamp = fromVariables(variables, {
 
 [npm-image]: https://img.shields.io/npm/v/convert-to-jcamp.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/convert-to-jcamp
-[travis-image]: https://img.shields.io/travis/cheminfo-js/convert-to-jcamp/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/cheminfo-js/convert-to-jcamp
-[codecov-image]: https://img.shields.io/codecov/c/github/cheminfo-js/convert-to-jcamp.svg?style=flat-square
-[codecov-url]: https://codecov.io/gh/cheminfo-js/convert-to-jcamp
+[travis-image]: https://img.shields.io/travis/cheminfo/convert-to-jcamp/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/cheminfo/convert-to-jcamp
+[codecov-image]: https://img.shields.io/codecov/c/github/cheminfo/convert-to-jcamp.svg?style=flat-square
+[codecov-url]: https://codecov.io/gh/cheminfo/convert-to-jcamp
 [download-image]: https://img.shields.io/npm/dm/convert-to-jcamp.svg?style=flat-square
 [download-url]: https://npmjs.org/package/convert-to-jcamp

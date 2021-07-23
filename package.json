@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cheminfo-js/convert-to-jcamp.git"
+    "url": "git+https://github.com/cheminfo/convert-to-jcamp.git"
   },
   "keywords": [
     "jcamp",
@@ -30,9 +30,9 @@
   "author": "Miguel Angel Asencio Hurtado",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cheminfo-js/convert-to-jcamp/issues"
+    "url": "https://github.com/cheminfo/convert-to-jcamp/issues"
   },
-  "homepage": "https://github.com/cheminfo-js/convert-to-jcamp#readme",
+  "homepage": "https://github.com/cheminfo/convert-to-jcamp#readme",
   "jest": {
     "testEnvironment": "node"
   },
