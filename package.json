@@ -37,6 +37,7 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.24",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "cheminfo-build": "^1.1.10",
     "cheminfo-tools": "^1.23.3",
