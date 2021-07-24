@@ -28,8 +28,6 @@ export function fromJSON(data, options = {}) {
     yUnits = '',
   } = info;
 
-  let points = [];
-
   let header = `##TITLE=${title}
 ##JCAMP-DX=4.24
 ##DATA TYPE=${dataType}
