@@ -1,4 +1,7 @@
-export function xyDataCreator(data) {
+import { getNumber } from './getNumber.js';
+
+export function xyDataCreator(data, options = {}) {
+  const { xFactor = 1, yFactor = 1 } = options;
   let firstX = data.x[0];
   let lastX = data.x[data.x.length - 1];
   let firstY = data.y[0];
@@ -12,15 +15,18 @@ export function xyDataCreator(data) {
   lines.push(`##FIRSTY=${firstY}`);
   lines.push(`##LASTY=${lastY}`);
   lines.push(`##DELTAX=${deltaX}`);
+  lines.push(`##XFACTOR=${xFactor}`);
+  lines.push(`##YFACTOR=${yFactor}`);
+  lines.push(`##DELTAX=${xFactor}`);
   lines.push('##XYDATA=(X++(Y..Y))');
 
   let line = data.x[0];
   for (let i = 0; i < data.x.length; i++) {
-    line += ` ${data.y[i]}`;
+    line += ` ${getNumber(data.y[i], yFactor)}`;
     if (line.length > 70) {
       lines.push(line);
       if (i < data.x.length - 1) {
-        line = data.x[0] + i * deltaX;
+        line = getNumber(data.x[0] + i * deltaX, xFactor);
       } else {
         line = '';
       }

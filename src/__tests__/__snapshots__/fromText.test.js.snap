@@ -16,6 +16,8 @@ exports[`fromText check valid with jcampconverter 1`] = `
 ##LASTX=8
 ##FIRSTY=2
 ##LASTY=9
+##XFACTOR=1
+##YFACTOR=1
 ##PEAK TABLE=(XY..XY)
 -1 2
 2 3

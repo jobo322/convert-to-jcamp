@@ -59,6 +59,41 @@ describe('fromJSON', () => {
       dataType: '',
     });
   });
+
+  it('xydata format with xFactor', () => {
+    const data = { x: [], y: [] };
+    for (let i = 0; i < 99; i++) {
+      data.x.push(i + 5);
+      data.y.push(i + 1);
+    }
+    data.x[data.x.length - 1] = data.x[0] + 1;
+    const jcamp = fromJSON(data, {
+      xydata: true,
+      info: { xFactor: 1 / (data.x.length - 1) },
+    });
+    let converted = JSON.parse(JSON.stringify(convert(jcamp))).flatten[0];
+    expect(converted).toMatchObject({
+      spectra: [
+        {
+          xUnits: '',
+          yUnits: '',
+          firstX: 5,
+          lastX: 6,
+          firstY: 1,
+          lastY: 99,
+          nbPoints: 99,
+          yFactor: 1,
+          isXYdata: true,
+        },
+      ],
+      ntuples: {},
+      info: {},
+      meta: {},
+      title: '',
+      dataType: '',
+    });
+  });
+
   it('xydata format large', () => {
     const data = { x: [], y: [] };
     for (let i = 0; i < 1000; i++) {
