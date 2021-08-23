@@ -91,10 +91,7 @@ const jcamp = fromVariables(variables, {
   info: {
     title: 'Hello world',
     dataType: 'TEST',
-  },
-  cheminfo: {
-    meta: { ab: 1, cd: 'a' }, // the cheminfo.meta is stringify and saved in ##$ORG.CHEMINFO.META LDR
-  },
+  }
 });
 ```
 
