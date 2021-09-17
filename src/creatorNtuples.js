@@ -35,13 +35,18 @@ export default function creatorNtuples(variables, options) {
     varName.push(variable.name || name || key);
     varDim.push(variables[key].data.length);
 
-    varType.push(
-      variable.type
-        ? variable.type.toUpperCase()
-        : i === 0
-        ? 'INDEPENDENT'
-        : 'DEPENDENT',
-    );
+    if (variable.isDependent !== undefined) {
+      varType.push(variable.isDependent ? 'DEPENDENT' : 'INDEPENDENT');
+    } else {
+      varType.push(
+        variable.type
+          ? variable.type.toUpperCase()
+          : i === 0
+          ? 'INDEPENDENT'
+          : 'DEPENDENT',
+      );
+    }
+
     units.push(variable.units || unit || '');
     first.push(variables[key][0]);
     last.push(variables[key][variables[key].length - 1]);

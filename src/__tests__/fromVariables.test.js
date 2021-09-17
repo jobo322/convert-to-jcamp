@@ -61,6 +61,82 @@ describe('fromVariables', () => {
     });
   });
 
+  it('3 variables with isDependent', () => {
+    const variables = {
+      x: {
+        data: [1, 2, 3, 4],
+        symbol: 'X',
+        name: 'x value',
+        units: 'x unit',
+        isDependent: true,
+      },
+      y: {
+        data: [2, 3, 4, 5],
+        symbol: 'Y',
+        name: 'y value',
+        units: 'y unit',
+        isDependent: false,
+      },
+      z: {
+        data: [3, 4, 5, 6],
+        symbol: 'T',
+        name: 't value',
+        units: 't unit',
+        isDependent: true,
+      },
+    };
+
+    const jcamp = fromVariables(variables, {
+      meta: {
+        meta1: 'value1',
+        meta2: 'value2',
+      },
+      info: {
+        title: 'Hello world',
+        dataType: 'TEST',
+      },
+    });
+
+    let converted = JSON.parse(
+      JSON.stringify(convert(jcamp, { keepRecordsRegExp: /^\$.*/ })),
+    ).flatten[0];
+
+    expect(converted.meta).toStrictEqual({ meta1: 'value1', meta2: 'value2' });
+
+    expect(converted.spectra[0].data).toStrictEqual({
+      x: [1, 2, 3, 4],
+      y: [2, 3, 4, 5],
+      t: [3, 4, 5, 6],
+    });
+
+    expect(converted.spectra[0].variables).toStrictEqual({
+      x: {
+        name: 'x value',
+        symbol: 'X',
+        type: 'DEPENDENT',
+        dim: 4,
+        units: 'x unit',
+        data: [1, 2, 3, 4],
+      },
+      y: {
+        name: 'y value',
+        symbol: 'Y',
+        type: 'INDEPENDENT',
+        dim: 4,
+        units: 'y unit',
+        data: [2, 3, 4, 5],
+      },
+      t: {
+        name: 't value',
+        symbol: 'T',
+        type: 'DEPENDENT',
+        dim: 4,
+        units: 't unit',
+        data: [3, 4, 5, 6],
+      },
+    });
+  });
+
   it('3 variables width specific independent / dependent', () => {
     const variables = {
       x: {
