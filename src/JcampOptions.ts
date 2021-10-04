@@ -43,12 +43,12 @@ export interface SpectrumInfo {
 
 export interface JcampOptions {
   /**
-   * metadata of the file
+   * standardize meta data defined in a jcamp like `title` or `dataType`
    * @default {}
    */
   info?: SpectrumInfo;
   /**
-   * comments to add to the file
+   * meta data information that will be placed in a ##$ labeled data record. Objects will be stringified.
    * @default {}
    */
   meta?: Record<string, any>;
