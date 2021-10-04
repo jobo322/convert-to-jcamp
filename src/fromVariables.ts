@@ -6,7 +6,8 @@ import fromJSON from './fromJSON';
 
 /**
  * Create a jcamp from variables
- * @param [variables={}] - object of variables
+ * @param variables - object of variables
+ * @param options - options allowing to specify meta information and other jcamp parameters
  * @returns JCAMP of the input
  */
 export function fromVariables(
