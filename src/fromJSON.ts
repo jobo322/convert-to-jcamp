@@ -6,9 +6,9 @@ import { xyDataCreator } from './utils/xyDataCreator';
 
 /**
  * Create a jcamp
- * @param data - object of array
- * @param options - metadata object
- * @return - JCAMP of the input
+ * @param data object of array
+ * @param [options={meta:{},info:{}} - metadata object
+ * @returns JCAMP of the input
  */
 export default function fromJSON(
   data: DataXY,

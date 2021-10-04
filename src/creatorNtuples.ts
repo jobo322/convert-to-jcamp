@@ -6,9 +6,9 @@ import { JcampOptions } from './JcampOptions';
 
 /**
  * Parse from a xyxy data array
- * @param {Array<Array<number>>} variables
- * @param {object} [meta] - same metadata object format that the fromText
- * @return {string} JCAMP of the input
+ * @param variables - Variables to convert to jcamp
+ * @param [options={}] - options that allows to add meta data in the jcamp
+ * @return JCAMP-DX text file corresponding to the variables
  */
 export default function creatorNtuples(
   variables: MeasurementXYVariables,

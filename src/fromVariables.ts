@@ -6,8 +6,8 @@ import fromJSON from './fromJSON';
 
 /**
  * Create a jcamp from variables
- * @param {Array<Variable>} [variables={}] - object of variables
- * @return {string} JCAMP of the input
+ * @param [variables={}] - object of variables
+ * @returns JCAMP of the input
  */
 export function fromVariables(
   variables: MeasurementXYVariables,

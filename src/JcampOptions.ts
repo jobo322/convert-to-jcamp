@@ -1,4 +1,4 @@
-interface SpectrumInfo {
+export interface SpectrumInfo {
   /**
    * title of the file
    * @default ''
@@ -20,22 +20,22 @@ interface SpectrumInfo {
    */
   dataType?: string;
   /**
-   * units for the x axis for variables===undefined
-   * @default ''
+   * units for the x axis
+   * @default 'Combiation of label and units from variable'
    */
   xUnits?: string;
   /**
-   * units for the y axis for variables===undefined
-   * @default ''
+   * units for the y axis
+   * @default 'Combiation of label and units from variable'
    */
   yUnits?: string;
   /**
-   * factor to multiply X value
+   * factor to multiply X values
    * @default 1
    */
   xFactor?: number;
   /**
-   * factor to multiply X value
+   * factor to multiply Y values
    * @default 1
    */
   yFactor?: number;

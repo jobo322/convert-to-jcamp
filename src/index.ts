@@ -1,3 +1,7 @@
 export * from './fromVariables';
-export { JcampOptions } from './JcampOptions';
-export { MeasurementVariable, MeasurementXYVariables } from 'cheminfo-types';
+export { JcampOptions, SpectrumInfo } from './JcampOptions';
+export {
+  MeasurementVariable,
+  MeasurementXYVariables,
+  DoubleArray,
+} from 'cheminfo-types';
