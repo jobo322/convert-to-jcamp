@@ -10,7 +10,7 @@ import { xyDataCreator } from './utils/xyDataCreator';
  * @param [options={meta:{},info:{}} - metadata object
  * @returns JCAMP of the input
  */
-export default function fromJSON(
+export function fromJSON(
   data: DataXY,
   options: JcampOptions = {},
 ): string {
@@ -51,5 +51,5 @@ ${(xydata
   ? xyDataCreator(data, { info: { xFactor, yFactor } })
   : peakTableCreator(data, { info: { xFactor, yFactor } })
 ).join('\n')}
-##END`;
+##END=`;
 }
