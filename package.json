@@ -13,7 +13,7 @@
     "lib-esm"
   ],
   "scripts": {
-    "build": "npm run tsc-esm; cheminfo-build --entry lib-esm/index.js --root ConvertToJcamp",
+    "build": "npm run tsc-esm && npx cheminfo-build --entry lib-esm/index.js --root ConvertToJcamp",
     "clean": "rimraf lib lib-esm",
     "check-types": "tsc --noEmit",
     "eslint": "eslint src --cache",

@@ -2,7 +2,7 @@ import { MeasurementXYVariables } from 'cheminfo-types';
 
 import { JcampOptions } from './JcampOptions';
 import creatorNtuples from './creatorNtuples';
-import fromJSON from './fromJSON';
+import { fromJSON } from './fromJSON';
 
 /**
  * Create a jcamp from variables
