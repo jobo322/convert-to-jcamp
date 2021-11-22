@@ -10,10 +10,7 @@ import { xyDataCreator } from './utils/xyDataCreator';
  * @param [options={meta:{},info:{}} - metadata object
  * @returns JCAMP of the input
  */
-export function fromJSON(
-  data: DataXY,
-  options: JcampOptions = {},
-): string {
+export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
   const { meta = {}, info = {}, xydata = false } = options;
 
   const {

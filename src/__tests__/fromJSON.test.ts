@@ -10,7 +10,7 @@ describe('fromJSON', () => {
       y: [2, 3, 4, 5],
     };
 
-    const jcamp = fromJSON(spectrum, { xydata: true});
+    const jcamp = fromJSON(spectrum, { xydata: true });
     const spectrumReaded = convert(jcamp, { xy: true });
     const spectrumData = spectrumReaded.flatten[0].spectra[0].data;
 

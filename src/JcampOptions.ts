@@ -62,4 +62,9 @@ export interface JcampOptions {
    * @default false
    */
   xydata?: boolean;
+  /**
+   * encoding
+   * @default 'DIF'
+   */
+  encoding?: string;
 }

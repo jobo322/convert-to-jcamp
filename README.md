@@ -22,7 +22,7 @@ Convert strings into JCAMP.
 
 ## Installation
 
-`$ npm install --save convert-to-jcamp`
+`$ npm install convert-to-jcamp`
 
 ## Usage
 
