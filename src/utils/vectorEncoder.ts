@@ -26,10 +26,7 @@ const MaxLinelength = 100;
 /**
  * This function encodes the given vector. The encoding format is specified by the
  * encoding option
- * @param {Array} data
- * @param {number} firstX
- * @param {number} intervalX
- * @param {string} encoding: ('FIX','SQZ','DIF','DIFDUP','CVS','PAC') Default 'DIFDUP'
+ * @param encoding: ('FIX','SQZ','DIF','DIFDUP','CVS','PAC') Default 'DIFDUP'
  * @return {string}
  */
 export function encode(
@@ -59,10 +56,6 @@ export function encode(
 /**
  * @private
  * No data compression used. The data is separated by a comma(',').
- * @param data
- * @param firstX
- * @param intervalX
- * @return {string}
  */
 export function commaSeparatedValuesEncoding(
   data: DoubleArray,
@@ -75,11 +68,6 @@ export function commaSeparatedValuesEncoding(
 /**
  * @private
  * No data compression used. The data is separated by the specified separator.
- * @param  data
- * @param firstX
- * @param intervalX
- * @param  separator, The separator character
- * @return {string}
  */
 export function fixEncoding(
   data: DoubleArray,
@@ -111,10 +99,6 @@ export function fixEncoding(
 /**
  * @private
  * No data compression used. The data is separated by the sign of the number.
- * @param {Array} data
- * @param {number} firstX
- * @param {number} intervalX
- * @return {string}
  */
 export function packedEncoding(
   data: DoubleArray,
@@ -124,28 +108,19 @@ export function packedEncoding(
   let outputData = '';
   let j = 0;
   let TD = data.length;
-  let i;
 
   while (j < TD - 7) {
     outputData += Math.ceil(firstX + j * intervalX);
-    for (i = 0; i < 8; i++) {
-      if (data[j] < 0) {
-        outputData += `-${data[j++]}`;
-      } else {
-        outputData += `+${data[j++]}`;
-      }
+    for (let i = 0; i < 8; i++) {
+      outputData += data[j] < 0 ? data[j++] : `+${data[j++]}`;
     }
     outputData += newLine;
   }
   if (j < TD) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (i = j; i < TD; i++) {
-      if (data[i] < 0) {
-        outputData += `-${data[i]}`;
-      } else {
-        outputData += `+${data[i]}`;
-      }
+    for (let i = j; i < TD; i++) {
+      outputData += data[i] < 0 ? data[i] : `+${data[i]}`;
     }
   }
   return outputData;
@@ -156,10 +131,6 @@ export function packedEncoding(
  * Data compression is possible using the squeezed form (SQZ) in which the delimiter, the leading digit,
  * and sign are replaced by a pseudo-digit from Table 1. For example, the Y-values 30, 32 would be
  * represented as C0C2.
- * @param {Array} data
- * @param {number} firstX
- * @param {number} intervalX
- * @return {string}
  */
 export function squeezedEncoding(
   data: DoubleArray,
@@ -170,11 +141,9 @@ export function squeezedEncoding(
   // String outputData = new String();
   let j = 0;
   let TD = data.length;
-  let i;
-
   while (j < TD - 10) {
     outputData += Math.ceil(firstX + j * intervalX);
-    for (i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
       outputData += squeezedDigit(data[j++].toString());
     }
     outputData += newLine;
@@ -182,7 +151,7 @@ export function squeezedEncoding(
   if (j < TD) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (i = j; i < TD; i++) {
+    for (let i = j; i < TD; i++) {
       outputData += squeezedDigit(data[i].toString());
     }
   }
@@ -193,10 +162,6 @@ export function squeezedEncoding(
 /**
  * @private
  * Duplicate suppression encoding
- * @param {Array} data
- * @param {number} firstX
- * @param {number} intervalX
- * @return {string}
  */
 export function differenceDuplicateEncoding(
   data: DoubleArray,
@@ -206,15 +171,14 @@ export function differenceDuplicateEncoding(
   let mult = 0;
   let index = 0;
   let charCount = 0;
-  let i;
   // We built a string where we store the encoded data.
-  let encodData = '';
-  let encodNumber = '';
+  let encodedData = '';
+  let encodedNumber = '';
   let temp = '';
 
   // We calculate the differences vector
   let diffData = new Array(data.length - 1);
-  for (i = 0; i < diffData.length; i++) {
+  for (let i = 0; i < diffData.length; i++) {
     diffData[i] = data[i + 1] - data[i];
   }
 
@@ -223,12 +187,12 @@ export function differenceDuplicateEncoding(
   while (index < numDiff) {
     if (charCount === 0) {
       // Start line
-      encodNumber =
+      encodedNumber =
         Math.ceil(firstX + index * intervalX) +
         squeezedDigit(data[index].toString()) +
         differenceDigit(diffData[index].toString());
-      encodData += encodNumber;
-      charCount += encodNumber.length;
+      encodedData += encodedNumber;
+      charCount += encodedNumber.length;
     } else {
       // Try to insert next difference
       if (diffData[index - 1] === diffData[index]) {
@@ -237,25 +201,25 @@ export function differenceDuplicateEncoding(
         if (mult > 0) {
           // Now we know that it can be in line
           mult++;
-          encodNumber = duplicateDigit(mult.toString());
-          encodData += encodNumber;
-          charCount += encodNumber.length;
+          encodedNumber = duplicateDigit(mult.toString());
+          encodedData += encodedNumber;
+          charCount += encodedNumber.length;
           mult = 0;
           index--;
         } else {
           // Mirar si cabe, en caso contrario iniciar una nueva linea
-          encodNumber = differenceDigit(diffData[index].toString());
-          if (encodNumber.length + charCount < MaxLinelength) {
-            encodData += encodNumber;
-            charCount += encodNumber.length;
+          encodedNumber = differenceDigit(diffData[index].toString());
+          if (encodedNumber.length + charCount < MaxLinelength) {
+            encodedData += encodedNumber;
+            charCount += encodedNumber.length;
           } else {
             // Iniciar nueva linea
-            encodData += newLine;
+            encodedData += newLine;
             temp =
               Math.ceil(firstX + index * intervalX) +
               squeezedDigit(data[index].toString()) +
-              encodNumber;
-            encodData += temp; // Each line start with first index number.
+              encodedNumber;
+            encodedData += temp; // Each line start with first index number.
             charCount = temp.length;
           }
         }
@@ -264,25 +228,21 @@ export function differenceDuplicateEncoding(
     index++;
   }
   if (mult > 0) {
-    encodData += duplicateDigit((mult + 1).toString());
+    encodedData += duplicateDigit((mult + 1).toString());
   }
   // We insert the last data from fid. It is done to control of data
   // The last line start with the number of datas in the fid.
-  encodData +=
+  encodedData +=
     newLine +
     Math.ceil(firstX + index * intervalX) +
     squeezedDigit(data[index].toString());
 
-  return encodData;
+  return encodedData;
 }
 
 /**
  * @private
  * Differential encoding
- * @param {Array} data
- * @param {number} firstX
- * @param {number} intervalX
- * @return {string}
  */
 export function differenceEncoding(
   data: DoubleArray,
@@ -293,8 +253,8 @@ export function differenceEncoding(
   let charCount = 0;
   let i;
 
-  let encodData = '';
-  let encodNumber = '';
+  let encodedData = '';
+  let encodedNumber = '';
   let temp = '';
 
   // We calculate the differences vector
@@ -307,52 +267,51 @@ export function differenceEncoding(
   while (index < numDiff) {
     if (charCount === 0) {
       // We convert the first number.
-      encodNumber =
+      encodedNumber =
         Math.ceil(firstX + index * intervalX) +
         squeezedDigit(data[index].toString()) +
         differenceDigit(diffData[index].toString());
-      encodData += encodNumber;
-      charCount += encodNumber.length;
+      encodedData += encodedNumber;
+      charCount += encodedNumber.length;
     } else {
-      encodNumber = differenceDigit(diffData[index].toString());
-      if (encodNumber.length + charCount < MaxLinelength) {
-        encodData += encodNumber;
-        charCount += encodNumber.length;
+      encodedNumber = differenceDigit(diffData[index].toString());
+      if (encodedNumber.length + charCount < MaxLinelength) {
+        encodedData += encodedNumber;
+        charCount += encodedNumber.length;
       } else {
-        encodData += newLine;
+        encodedData += newLine;
         temp =
           Math.ceil(firstX + index * intervalX) +
           squeezedDigit(data[index].toString()) +
-          encodNumber;
-        encodData += temp; // Each line start with first index number.
+          encodedNumber;
+        encodedData += temp; // Each line start with first index number.
         charCount = temp.length;
       }
     }
     index++;
   }
   // We insert the last number from data. It is done to control of data
-  encodData +=
+  encodedData +=
     newLine +
     Math.ceil(firstX + index * intervalX) +
     squeezedDigit(data[index].toString());
 
-  return encodData;
+  return encodedData;
 }
 
 /**
  * @private
  * Convert number to the ZQZ format, using pseudo digits.
- * @return {string}
  */
 function squeezedDigit(num: string) {
   let SQZdigit = '';
   if (num.startsWith('-')) {
-    SQZdigit += pseudoDigits[SQZ_N][Number(num.charAt(1))];
+    SQZdigit += pseudoDigits[SQZ_N][num.charCodeAt(1) - 48];
     if (num.length > 2) {
       SQZdigit += num.substring(2);
     }
   } else {
-    SQZdigit += pseudoDigits[SQZ_P][Number(num.charAt(0))];
+    SQZdigit += pseudoDigits[SQZ_P][num.charCodeAt(0) - 48];
     if (num.length > 1) {
       SQZdigit += num.substring(1);
     }
@@ -363,18 +322,17 @@ function squeezedDigit(num: string) {
 
 /**
  * Convert number to the DIF format, using pseudo digits.
- * @return {string}
  */
 function differenceDigit(num: string) {
   let DIFFdigit = '';
 
   if (num.startsWith('-')) {
-    DIFFdigit += pseudoDigits[DIF_N][Number(num.charAt(1))];
+    DIFFdigit += pseudoDigits[DIF_N][num.charCodeAt(1) - 48];
     if (num.length > 2) {
       DIFFdigit += num.substring(2);
     }
   } else {
-    DIFFdigit += pseudoDigits[DIF_P][Number(num.charAt(0))];
+    DIFFdigit += pseudoDigits[DIF_P][num.charCodeAt(0) - 48];
     if (num.length > 1) {
       DIFFdigit += num.substring(1);
     }
@@ -385,11 +343,10 @@ function differenceDigit(num: string) {
 
 /**
  * Convert number to the DUP format, using pseudo digits.
- * @return {string}
  */
 function duplicateDigit(num: string) {
   let DUPdigit = '';
-  DUPdigit += pseudoDigits[DUP][Number(num.charAt(0))];
+  DUPdigit += pseudoDigits[DUP][num.charCodeAt(0) - 48];
   if (num.length > 1) {
     DUPdigit += num.substring(1);
   }
