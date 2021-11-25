@@ -304,52 +304,52 @@ export function differenceEncoding(
  * Convert number to the ZQZ format, using pseudo digits.
  */
 function squeezedDigit(num: string) {
-  let SQZdigit = '';
+  let sqzDigits = '';
   if (num.startsWith('-')) {
-    SQZdigit += pseudoDigits[SQZ_N][num.charCodeAt(1) - 48];
+    sqzDigits += pseudoDigits[SQZ_N][num.charCodeAt(1) - 48];
     if (num.length > 2) {
-      SQZdigit += num.substring(2);
+      sqzDigits += num.substring(2);
     }
   } else {
-    SQZdigit += pseudoDigits[SQZ_P][num.charCodeAt(0) - 48];
+    sqzDigits += pseudoDigits[SQZ_P][num.charCodeAt(0) - 48];
     if (num.length > 1) {
-      SQZdigit += num.substring(1);
+      sqzDigits += num.substring(1);
     }
   }
 
-  return SQZdigit;
+  return sqzDigits;
 }
 
 /**
  * Convert number to the DIF format, using pseudo digits.
  */
 function differenceDigit(num: string) {
-  let DIFFdigit = '';
+  let diffDigits = '';
 
   if (num.startsWith('-')) {
-    DIFFdigit += pseudoDigits[DIF_N][num.charCodeAt(1) - 48];
+    diffDigits += pseudoDigits[DIF_N][num.charCodeAt(1) - 48];
     if (num.length > 2) {
-      DIFFdigit += num.substring(2);
+      diffDigits += num.substring(2);
     }
   } else {
-    DIFFdigit += pseudoDigits[DIF_P][num.charCodeAt(0) - 48];
+    diffDigits += pseudoDigits[DIF_P][num.charCodeAt(0) - 48];
     if (num.length > 1) {
-      DIFFdigit += num.substring(1);
+      diffDigits += num.substring(1);
     }
   }
 
-  return DIFFdigit;
+  return diffDigits;
 }
 
 /**
  * Convert number to the DUP format, using pseudo digits.
  */
 function duplicateDigit(num: string) {
-  let DUPdigit = '';
-  DUPdigit += pseudoDigits[DUP][num.charCodeAt(0) - 48];
+  let dupDigits = '';
+  dupDigits += pseudoDigits[DUP][num.charCodeAt(0) - 48];
   if (num.length > 1) {
-    DUPdigit += num.substring(1);
+    dupDigits += num.substring(1);
   }
 
-  return DUPdigit;
+  return dupDigits;
 }
