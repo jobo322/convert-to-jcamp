@@ -1,4 +1,4 @@
-export interface JcampInfo {
+export interface JcampInfo extends Record<string, any> {
   /**
    * title of the file
    * @default ''
