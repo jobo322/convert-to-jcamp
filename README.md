@@ -22,13 +22,14 @@ Convert strings into JCAMP.
 
 ## Installation
 
-`$ npm install --save convert-to-jcamp`
+`$ npm install convert-to-jcamp`
 
 ## Usage
 
 ### From Variables
 
 ```js
+const { fromVariables } = require('convert-to-jcamp');
 const variables = {
   x: {
     data: [1, 2, 3, 4],

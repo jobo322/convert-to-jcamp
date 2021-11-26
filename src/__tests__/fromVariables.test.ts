@@ -264,13 +264,14 @@ describe('fromVariables', () => {
       info: {
         title: 'Hello world',
         dataType: 'TEST',
+        console: '55',
       },
+      xyEncoding: 'DIFDUP',
     });
 
     let converted = JSON.parse(
       JSON.stringify(convert(jcamp, { keepRecordsRegExp: /^\$.*/ })),
     ).flatten[0];
-
     expect(converted.meta).toStrictEqual({ meta1: 'value1', meta2: 'value2' });
 
     expect(converted.spectra[0]).toStrictEqual({

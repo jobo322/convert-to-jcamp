@@ -3,6 +3,7 @@ import maxFct from 'ml-array-max';
 import minFct from 'ml-array-min';
 
 import { JcampOptions } from './JcampOptions';
+import { addInfoData } from './utils/addInfoData';
 
 /**
  * Parse from a xyxy data array
@@ -69,12 +70,11 @@ export default function creatorNtuples(
 ##ORIGIN=${origin}
 ##OWNER=${owner}\n`;
 
-  for (const key in meta) {
-    header +=
-      typeof meta[key] === 'object'
-        ? `##$${key}=${JSON.stringify(meta[key])}\n`
-        : `##$${key}=${meta[key]}\n`;
-  }
+  const infoKeys = Object.keys(info).filter(
+    (e) => !['title', 'owner', 'origin', 'dataType'].includes(e),
+  );
+  header += addInfoData(info, infoKeys, '##');
+  header += addInfoData(meta);
 
   header += `##NTUPLES= ${dataType}
 ##VAR_NAME=  ${varName.join()}

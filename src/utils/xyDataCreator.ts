@@ -2,9 +2,11 @@ import { DataXY } from 'cheminfo-types';
 
 import { JcampOptions } from '../JcampOptions';
 
-import { getNumber } from './getNumber';
+// import { getNumber } from './getNumber';
+import { encode } from './vectorEncoder';
 
 export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
+  const { xyEncoding = 'DIF' } = options;
   const { xFactor = 1, yFactor = 1 } = options.info || {};
   let firstX = data.x[0];
   let lastX = data.x[data.x.length - 1];
@@ -23,18 +25,7 @@ export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
   lines.push(`##YFACTOR=${yFactor}`);
   lines.push('##XYDATA=(X++(Y..Y))');
 
-  let line = String(getNumber(data.x[0], xFactor));
-  for (let i = 0; i < data.x.length; i++) {
-    line += ` ${getNumber(data.y[i], yFactor)}`;
-    if (line.length > 70) {
-      lines.push(line);
-      if (i < data.x.length - 1) {
-        line = String(getNumber(data.x[0] + (i + 1) * deltaX, xFactor));
-      } else {
-        line = '';
-      }
-    }
-  }
+  let line = encode(data.y, data.x[0], deltaX, xyEncoding);
   if (line) lines.push(line);
   return lines;
 }
