@@ -22,7 +22,7 @@ const infoDefaultKeys = [
  * @returns JCAMP of the input
  */
 export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
-  const { meta = {}, info = {}, xyData = false } = options;
+  const { meta = {}, info = {}, xyEncoding } = options;
 
   const {
     title = '',
@@ -53,8 +53,8 @@ export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
   // we leave the header and utf8 fonts ${header.replace(/[^\t\r\n\x20-\x7F]/g, '')
 
   return `${header}##NPOINTS=${data.x.length}
-${(xyData
-  ? xyDataCreator(data, { info: { xFactor, yFactor } })
+${(xyEncoding
+  ? xyDataCreator(data, { info: { xFactor, yFactor }, xyEncoding })
   : peakTableCreator(data, { info: { xFactor, yFactor } })
 ).join('\n')}
 ##END=`;
