@@ -1,6 +1,6 @@
 export * from './fromVariables';
 export * from './fromJSON';
-export { JcampOptions, JcampInfo } from './JcampOptions';
+export * from './JcampOptions';
 export {
   MeasurementVariable,
   MeasurementXYVariables,

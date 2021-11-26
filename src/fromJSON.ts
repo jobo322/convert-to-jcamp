@@ -22,7 +22,7 @@ const infoDefaultKeys = [
  * @returns JCAMP of the input
  */
 export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
-  const { meta = {}, info = {}, xydata = false } = options;
+  const { meta = {}, info = {}, xyData = false } = options;
 
   const {
     title = '',
@@ -44,14 +44,16 @@ export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
 ##OWNER=${owner}
 ##XUNITS=${xUnits}
 ##YUNITS=${yUnits}\n`;
-  const infoKeys = Object.keys(info).filter((e) => !infoDefaultKeys.includes(e));
+  const infoKeys = Object.keys(info).filter(
+    (e) => !infoDefaultKeys.includes(e),
+  );
   header += addInfoData(info, infoKeys, '##');
-  header += addInfoData(meta)
+  header += addInfoData(meta);
 
   // we leave the header and utf8 fonts ${header.replace(/[^\t\r\n\x20-\x7F]/g, '')
 
   return `${header}##NPOINTS=${data.x.length}
-${(xydata
+${(xyData
   ? xyDataCreator(data, { info: { xFactor, yFactor } })
   : peakTableCreator(data, { info: { xFactor, yFactor } })
 ).join('\n')}

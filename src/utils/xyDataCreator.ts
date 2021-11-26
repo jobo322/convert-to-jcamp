@@ -6,7 +6,7 @@ import { JcampOptions } from '../JcampOptions';
 import { encode } from './vectorEncoder';
 
 export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
-  const { encoding = 'DIF' } = options;
+  const { xyEncoding = 'DIF' } = options;
   const { xFactor = 1, yFactor = 1 } = options.info || {};
   let firstX = data.x[0];
   let lastX = data.x[data.x.length - 1];
@@ -25,7 +25,7 @@ export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
   lines.push(`##YFACTOR=${yFactor}`);
   lines.push('##XYDATA=(X++(Y..Y))');
 
-  let line = encode(data.y, data.x[0], deltaX, encoding);
+  let line = encode(data.y, data.x[0], deltaX, xyEncoding);
   if (line) lines.push(line);
   return lines;
 }

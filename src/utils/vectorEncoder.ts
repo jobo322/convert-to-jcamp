@@ -24,18 +24,18 @@ const DUP = 5;
 const MaxLinelength = 100;
 
 /**
- * This function encodes the given vector. The encoding format is specified by the
- * encoding option
- * @param encoding: ('FIX','SQZ','DIF','DIFDUP','CVS','PAC') Default 'DIFDUP'
+ * This function encodes the given vector. The xyEncoding format is specified by the
+ * xyEncoding option
+ * @param xyEncoding: ('FIX','SQZ','DIF','DIFDUP','CVS','PAC') Default 'DIFDUP'
  * @return {string}
  */
 export function encode(
   data: DoubleArray,
   firstX: number,
   intervalX: number,
-  encoding: string,
+  xyEncoding: string,
 ) {
-  switch (encoding) {
+  switch (xyEncoding) {
     case 'FIX':
       return fixEncoding(data, firstX, intervalX);
     case 'SQZ':
@@ -161,7 +161,7 @@ export function squeezedEncoding(
 
 /**
  * @private
- * Duplicate suppression encoding
+ * Duplicate suppression xyEncoding
  */
 export function differenceDuplicateEncoding(
   data: DoubleArray,
@@ -242,7 +242,7 @@ export function differenceDuplicateEncoding(
 
 /**
  * @private
- * Differential encoding
+ * Differential xyEncoding
  */
 export function differenceEncoding(
   data: DoubleArray,

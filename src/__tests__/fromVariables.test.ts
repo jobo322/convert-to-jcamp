@@ -266,7 +266,7 @@ describe('fromVariables', () => {
         dataType: 'TEST',
         console: '55',
       },
-      encoding: 'DIFDUP',
+      xyEncoding: 'DIFDUP',
     });
 
     let converted = JSON.parse(

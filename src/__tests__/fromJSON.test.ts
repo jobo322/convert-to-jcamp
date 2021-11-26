@@ -2,6 +2,7 @@
 import { convert } from 'jcampconverter';
 
 import { fromJSON } from '../fromJSON';
+import { XYEncoding } from '../JcampOptions';
 
 const createData = (firstX: number, lastX: number, nbPoints: number) => {
   const x = new Array(nbPoints);
@@ -18,15 +19,22 @@ const yNegative = createData(-1, -150, 150);
 const yZeros = createData(0, 0, 150);
 
 describe('fromJSON', () => {
-  it('create and read spectrum differents encoding', () => {
+  it('create and read spectrum differents xyEncoding', () => {
     const spectrum = {
       x: xAxis,
-      y: yPositive
+      y: yPositive,
     };
 
-    const encodingList = ['DIFF', 'DIFDUP', 'FIX', 'SQZ', 'CSV', 'PAC'];
-    for (let encoding of encodingList) {
-      const jcamp = fromJSON(spectrum, { xydata: true, encoding });
+    const encodingList: XYEncoding[] = [
+      'DIF',
+      'DIFDUP',
+      'FIX',
+      'SQZ',
+      'CSV',
+      'PAC',
+    ];
+    for (let xyEncoding of encodingList) {
+      const jcamp = fromJSON(spectrum, { xyData: true, xyEncoding });
       const spectrumReaded = convert(jcamp, { xy: true });
       const spectrumData = spectrumReaded.flatten[0].spectra[0].data;
 
@@ -35,15 +43,22 @@ describe('fromJSON', () => {
     }
   });
 
-  it('create and read spectrum y in zeros differents encoding', () => {
+  it('create and read spectrum y in zeros differents xyEncoding', () => {
     const spectrum = {
       x: xAxis,
-      y: yZeros
+      y: yZeros,
     };
 
-    const encodingList = ['DIFF', 'DIFDUP', 'FIX', 'SQZ', 'CSV', 'PAC'];
-    for (let encoding of encodingList) {
-      const jcamp = fromJSON(spectrum, { xydata: true, encoding });
+    const encodingList: XYEncoding[] = [
+      'DIF',
+      'DIFDUP',
+      'FIX',
+      'SQZ',
+      'CSV',
+      'PAC',
+    ];
+    for (let xyEncoding of encodingList) {
+      const jcamp = fromJSON(spectrum, { xyData: true, xyEncoding });
       const spectrumReaded = convert(jcamp, { xy: true });
       const spectrumData = spectrumReaded.flatten[0].spectra[0].data;
 
@@ -52,10 +67,10 @@ describe('fromJSON', () => {
     }
   });
 
-  it('create and read spectrum DIFDUP encoding negative values', () => {
+  it('create and read spectrum DIFDUP xyEncoding negative values', () => {
     const spectrum = { x: xAxis, y: yNegative };
 
-    const jcamp = fromJSON(spectrum, { xydata: true, encoding: 'DIFDUP' });
+    const jcamp = fromJSON(spectrum, { xyData: true, xyEncoding: 'DIFDUP' });
     const spectrumReaded = convert(jcamp, { xy: true });
     const spectrumData = spectrumReaded.flatten[0].spectra[0].data;
     expect(spectrumData.x).toStrictEqual(spectrum.x);
