@@ -1,3 +1,5 @@
+export type XYEncoding = 'FIX' | 'SQZ' | 'DIF' | 'DIFDUP' | 'PAC' | 'CSV';
+
 export interface JcampInfo extends Record<string, any> {
   /**
    * title of the file
@@ -21,12 +23,12 @@ export interface JcampInfo extends Record<string, any> {
   dataType?: string;
   /**
    * units for the x axis
-   * @default 'Combiation of label and units from variable'
+   * @default 'Combination of label and units from variable'
    */
   xUnits?: string;
   /**
    * units for the y axis
-   * @default 'Combiation of label and units from variable'
+   * @default 'Combination of label and units from variable'
    */
   yUnits?: string;
   /**
@@ -61,10 +63,10 @@ export interface JcampOptions {
    * Use XYDATA format. Will use first / last X and equidistant Xs values if true
    * @default false
    */
-  xydata?: boolean;
+  xyData?: boolean;
   /**
-   * encoding
+   * xyEncoding
    * @default 'DIF'
    */
-  encoding?: string;
+  xyEncoding?: XYEncoding;
 }
