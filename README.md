@@ -29,6 +29,7 @@ Convert strings into JCAMP.
 ### From Variables
 
 ```js
+const { fromVariables } = require('convert-to-jcamp');
 const variables = {
   x: {
     data: [1, 2, 3, 4],
