@@ -1,4 +1,4 @@
-export interface JcampInfo {
+export interface JcampInfo extends Record<string, any> {
   /**
    * title of the file
    * @default ''
@@ -62,4 +62,9 @@ export interface JcampOptions {
    * @default false
    */
   xydata?: boolean;
+  /**
+   * encoding
+   * @default 'DIF'
+   */
+  encoding?: string;
 }

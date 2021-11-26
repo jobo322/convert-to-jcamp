@@ -1,19 +1,27 @@
 import { DataXY } from 'cheminfo-types';
 
 import { JcampOptions } from './JcampOptions';
+import { addInfoData } from './utils/addInfoData';
 import { peakTableCreator } from './utils/peakTableCreator';
 import { xyDataCreator } from './utils/xyDataCreator';
 
+const infoDefaultKeys = [
+  'title',
+  'owner',
+  'origin',
+  'dataType',
+  'xUnits',
+  'yUnits',
+  'xFactor',
+  'yFactor',
+];
 /**
  * Create a jcamp
  * @param data object of array
  * @param [options={meta:{},info:{}} - metadata object
  * @returns JCAMP of the input
  */
-export function fromJSON(
-  data: DataXY,
-  options: JcampOptions = {},
-): string {
+export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
   const { meta = {}, info = {}, xydata = false } = options;
 
   const {
@@ -36,13 +44,9 @@ export function fromJSON(
 ##OWNER=${owner}
 ##XUNITS=${xUnits}
 ##YUNITS=${yUnits}\n`;
-
-  for (const key in meta) {
-    header +=
-      key.toLowerCase() === 'cheminfo'
-        ? `##$${key}=${JSON.stringify(meta[key])}\n`
-        : `##$${key}=${meta[key]}\n`;
-  }
+  const infoKeys = Object.keys(info).filter((e) => !infoDefaultKeys.includes(e));
+  header += addInfoData(info, infoKeys, '##');
+  header += addInfoData(meta)
 
   // we leave the header and utf8 fonts ${header.replace(/[^\t\r\n\x20-\x7F]/g, '')
 
