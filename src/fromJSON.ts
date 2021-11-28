@@ -50,7 +50,7 @@ export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
   header += addInfoData(info, infoKeys, '##');
   header += addInfoData(meta);
 
-  // we leave the header and utf8 fonts ${header.replace(/[^\t\r\n\x20-\x7F]/g, '')
+  // we leave the header and utf8 fonts ${header.replace(/[^\t\n\x20-\x7F]/g, '')
 
   return `${header}##NPOINTS=${data.x.length}
 ${(xyEncoding
