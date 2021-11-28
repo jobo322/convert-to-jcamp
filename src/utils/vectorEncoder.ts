@@ -5,7 +5,7 @@ import { DoubleArray } from 'cheminfo-types';
  * The algorithms used to encode the data are describe in:
  *            http://www.iupac.org/publications/pac/pdf/2001/pdf/7311x1765.pdf
  */
-const newLine = '\r\n';
+const newLine = '\n';
 
 const pseudoDigits: string[][] = [
   ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
