@@ -21,7 +21,7 @@ const SQZ_N = 2;
 const DIF_P = 3;
 const DIF_N = 4;
 const DUP = 5;
-const MaxLinelength = 100;
+const maxLinelength = 100;
 
 /**
  * This function encodes the given vector. The xyEncoding format is specified by the
@@ -208,7 +208,7 @@ export function differenceDuplicateEncoding(
         } else {
           // Mirar si cabe, en caso contrario iniciar una nueva linea
           encodedNumber = differenceDigit(diffData[index].toString());
-          if (encodedNumber.length + charCount < MaxLinelength) {
+          if (encodedNumber.length + charCount < maxLinelength) {
             encodedData += encodedNumber;
             charCount += encodedNumber.length;
           } else {
@@ -274,7 +274,7 @@ export function differenceEncoding(
       charCount += encodedNumber.length;
     } else {
       encodedNumber = differenceDigit(diffData[index].toString());
-      if (encodedNumber.length + charCount < MaxLinelength) {
+      if (encodedNumber.length + charCount < maxLinelength) {
         encodedData += encodedNumber;
         charCount += encodedNumber.length;
       } else {
