@@ -77,18 +77,18 @@ export function fixEncoding(
 ) {
   let outputData = '';
   let j = 0;
-  let TD = data.length;
-  while (j < TD - 7) {
+  let dataLength = data.length;
+  while (j < dataLength - 7) {
     outputData += Math.ceil(firstX + j * intervalX);
     for (let i = 0; i < 8; i++) {
       outputData += separator + data[j++];
     }
     outputData += newLine;
   }
-  if (j < TD) {
+  if (j < dataLength) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (let i = j; i < TD; i++) {
+    for (let i = j; i < dataLength; i++) {
       outputData += separator + data[i];
     }
   }
@@ -106,19 +106,19 @@ export function packedEncoding(
 ) {
   let outputData = '';
   let j = 0;
-  let TD = data.length;
+  let dataLength = data.length;
 
-  while (j < TD - 7) {
+  while (j < dataLength - 7) {
     outputData += Math.ceil(firstX + j * intervalX);
     for (let i = 0; i < 8; i++) {
       outputData += data[j] < 0 ? data[j++] : `+${data[j++]}`;
     }
     outputData += newLine;
   }
-  if (j < TD) {
+  if (j < dataLength) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (let i = j; i < TD; i++) {
+    for (let i = j; i < dataLength; i++) {
       outputData += data[i] < 0 ? data[i] : `+${data[i]}`;
     }
   }
@@ -139,18 +139,18 @@ export function squeezedEncoding(
   let outputData = '';
   // String outputData = new String();
   let j = 0;
-  let TD = data.length;
-  while (j < TD - 10) {
+  let dataLength = data.length;
+  while (j < dataLength - 10) {
     outputData += Math.ceil(firstX + j * intervalX);
     for (let i = 0; i < 10; i++) {
       outputData += squeezedDigit(data[j++].toString());
     }
     outputData += newLine;
   }
-  if (j < TD) {
+  if (j < dataLength) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (let i = j; i < TD; i++) {
+    for (let i = j; i < dataLength; i++) {
       outputData += squeezedDigit(data[i].toString());
     }
   }
