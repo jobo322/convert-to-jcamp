@@ -25,20 +25,11 @@ describe('fromJSON', () => {
       y: yPositive,
     };
 
-    const encodingList: XYEncoding[] = [
-      'DIF',
-      'DIFDUP',
-      'FIX',
-      'SQZ',
-      'CSV',
-      'PAC',
-    ];
+    const encodingList: XYEncoding[] = ['DIF', 'DIFDUP', 'FIX', 'SQZ', 'PAC'];
     for (let xyEncoding of encodingList) {
       const jcamp = fromJSON(spectrum, { xyEncoding });
-      console.log(jcamp);
       const spectrumReaded = convert(jcamp, { xy: true });
       const spectrumData = spectrumReaded.flatten[0].spectra[0].data;
-
       expect(spectrumData.x).toStrictEqual(spectrum.x);
       expect(spectrumData.y).toStrictEqual(spectrum.y);
     }
@@ -50,19 +41,11 @@ describe('fromJSON', () => {
       y: yZeros,
     };
 
-    const encodingList: XYEncoding[] = [
-      'DIF',
-      'DIFDUP',
-      'FIX',
-      'SQZ',
-      'CSV',
-      'PAC',
-    ];
+    const encodingList: XYEncoding[] = ['DIF', 'DIFDUP', 'FIX', 'SQZ', 'PAC'];
     for (let xyEncoding of encodingList) {
       const jcamp = fromJSON(spectrum, { xyEncoding });
       const spectrumReaded = convert(jcamp, { xy: true });
       const spectrumData = spectrumReaded.flatten[0].spectra[0].data;
-
       expect(spectrumData.x).toStrictEqual(spectrum.x);
       expect(spectrumData.y).toStrictEqual(spectrum.y);
     }

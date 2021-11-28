@@ -78,10 +78,9 @@ export function fixEncoding(
   let outputData = '';
   let j = 0;
   let TD = data.length;
-  let i;
   while (j < TD - 7) {
     outputData += Math.ceil(firstX + j * intervalX);
-    for (i = 0; i < 8; i++) {
+    for (let i = 0; i < 8; i++) {
       outputData += separator + data[j++];
     }
     outputData += newLine;
@@ -89,7 +88,7 @@ export function fixEncoding(
   if (j < TD) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (i = j; i < TD; i++) {
+    for (let i = j; i < TD; i++) {
       outputData += separator + data[i];
     }
   }
