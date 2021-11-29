@@ -21,7 +21,7 @@ const SQZ_N = 2;
 const DIF_P = 3;
 const DIF_N = 4;
 const DUP = 5;
-const MaxLinelength = 100;
+const maxLinelength = 100;
 
 /**
  * This function encodes the given vector. The xyEncoding format is specified by the
@@ -77,18 +77,18 @@ export function fixEncoding(
 ) {
   let outputData = '';
   let j = 0;
-  let TD = data.length;
-  while (j < TD - 7) {
+  let dataLength = data.length;
+  while (j < dataLength - 7) {
     outputData += Math.ceil(firstX + j * intervalX);
     for (let i = 0; i < 8; i++) {
       outputData += separator + data[j++];
     }
     outputData += newLine;
   }
-  if (j < TD) {
+  if (j < dataLength) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (let i = j; i < TD; i++) {
+    for (let i = j; i < dataLength; i++) {
       outputData += separator + data[i];
     }
   }
@@ -106,19 +106,19 @@ export function packedEncoding(
 ) {
   let outputData = '';
   let j = 0;
-  let TD = data.length;
+  let dataLength = data.length;
 
-  while (j < TD - 7) {
+  while (j < dataLength - 7) {
     outputData += Math.ceil(firstX + j * intervalX);
     for (let i = 0; i < 8; i++) {
       outputData += data[j] < 0 ? data[j++] : `+${data[j++]}`;
     }
     outputData += newLine;
   }
-  if (j < TD) {
+  if (j < dataLength) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (let i = j; i < TD; i++) {
+    for (let i = j; i < dataLength; i++) {
       outputData += data[i] < 0 ? data[i] : `+${data[i]}`;
     }
   }
@@ -139,18 +139,18 @@ export function squeezedEncoding(
   let outputData = '';
   // String outputData = new String();
   let j = 0;
-  let TD = data.length;
-  while (j < TD - 10) {
+  let dataLength = data.length;
+  while (j < dataLength - 10) {
     outputData += Math.ceil(firstX + j * intervalX);
     for (let i = 0; i < 10; i++) {
       outputData += squeezedDigit(data[j++].toString());
     }
     outputData += newLine;
   }
-  if (j < TD) {
+  if (j < dataLength) {
     // We add last numbers
     outputData += Math.ceil(firstX + j * intervalX);
-    for (let i = j; i < TD; i++) {
+    for (let i = j; i < dataLength; i++) {
       outputData += squeezedDigit(data[i].toString());
     }
   }
@@ -208,7 +208,7 @@ export function differenceDuplicateEncoding(
         } else {
           // Mirar si cabe, en caso contrario iniciar una nueva linea
           encodedNumber = differenceDigit(diffData[index].toString());
-          if (encodedNumber.length + charCount < MaxLinelength) {
+          if (encodedNumber.length + charCount < maxLinelength) {
             encodedData += encodedNumber;
             charCount += encodedNumber.length;
           } else {
@@ -274,7 +274,7 @@ export function differenceEncoding(
       charCount += encodedNumber.length;
     } else {
       encodedNumber = differenceDigit(diffData[index].toString());
-      if (encodedNumber.length + charCount < MaxLinelength) {
+      if (encodedNumber.length + charCount < maxLinelength) {
         encodedData += encodedNumber;
         charCount += encodedNumber.length;
       } else {
