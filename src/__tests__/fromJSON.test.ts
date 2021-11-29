@@ -19,6 +19,26 @@ const yNegative = createData(-1, -150, 150);
 const yZeros = createData(0, 0, 150);
 
 describe('fromJSON', () => {
+  it('create and read spectrum differents xyEncoding factor != 1', () => {
+    const spectrum = {
+      x: xAxis,
+      y: yPositive,
+    };
+
+    const encodingList: XYEncoding[] = ['DIF', 'DIFDUP', 'FIX', 'SQZ', 'PAC'];
+    for (let xyEncoding of encodingList) {
+      const jcamp = fromJSON(spectrum, {
+        xyEncoding,
+        info: { xFactor: 2, yFactor: 2 },
+      });
+      const spectrumReaded = convert(jcamp, {
+        xy: true,
+      });
+      const spectrumData = spectrumReaded.flatten[0].spectra[0].data;
+      expect(spectrumData.x).toStrictEqual(spectrum.x);
+      expect(spectrumData.y).toStrictEqual(spectrum.y);
+    }
+  });
   it('create and read spectrum differents xyEncoding', () => {
     const spectrum = {
       x: xAxis,
