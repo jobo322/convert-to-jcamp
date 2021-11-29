@@ -1,6 +1,8 @@
 import { DataXY } from 'cheminfo-types';
 
+// @ts-expect-error
 import { JcampOptions } from './JcampOptions';
+import { ensureYInteger } from './utils/ensureInteger';
 import { addInfoData } from './utils/addInfoData';
 import { peakTableCreator } from './utils/peakTableCreator';
 import { xyDataCreator } from './utils/xyDataCreator';
@@ -24,7 +26,7 @@ const infoDefaultKeys = [
 export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
   const { meta = {}, info = {}, xyEncoding } = options;
 
-  const {
+  let {
     title = '',
     owner = '',
     origin = '',
@@ -45,17 +47,22 @@ export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
 ##XUNITS=${xUnits}
 ##YUNITS=${yUnits}\n`;
   const infoKeys = Object.keys(info).filter(
-    (e) => !infoDefaultKeys.includes(e),
+    (keys) => !infoDefaultKeys.includes(keys),
   );
   header += addInfoData(info, infoKeys, '##');
   header += addInfoData(meta);
 
   // we leave the header and utf8 fonts ${header.replace(/[^\t\n\x20-\x7F]/g, '')
 
-  return `${header}##NPOINTS=${data.x.length}
-${(xyEncoding
-  ? xyDataCreator(data, { info: { xFactor, yFactor }, xyEncoding })
-  : peakTableCreator(data, { info: { xFactor, yFactor } })
-).join('\n')}
+  if (xyEncoding) {
+    yFactor = ensureYInteger(data, { yFactor });
+
+    return `${header}##NPOINTS=${data.x.length}
+${xyDataCreator(data, { info: { xFactor, yFactor }, xyEncoding }).join('\n')}
 ##END=`;
+  } else {
+    return `${header}##NPOINTS=${data.x.length}
+${peakTableCreator(data, { info: { xFactor, yFactor } }).join('\n')}
+##END=`;
+  }
 }

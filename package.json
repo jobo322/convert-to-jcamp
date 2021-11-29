@@ -55,6 +55,7 @@
   "dependencies": {
     "cheminfo-types": "^0.8.0",
     "ml-array-max": "^1.2.3",
-    "ml-array-min": "^1.2.2"
+    "ml-array-min": "^1.2.2",
+    "ml-spectra-processing": "^6.8.0"
   }
 }
