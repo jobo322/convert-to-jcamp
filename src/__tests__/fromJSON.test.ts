@@ -33,7 +33,7 @@ describe('fromJSON', () => {
       y: yPositive,
     };
 
-    const encodingList: XYEncoding[] = ['DIF', 'DIFDUP', 'FIX', 'SQZ', 'PAC'];
+    const encodingList: XYEncoding[] = ['FIX', 'PAC', 'SQZ', 'DIF', 'DIFDUP'];
     for (let xyEncoding of encodingList) {
       const jcamp = fromJSON(spectrum, {
         xyEncoding,
@@ -50,7 +50,7 @@ describe('fromJSON', () => {
       y: yPositive,
     };
 
-    const encodingList: XYEncoding[] = ['DIF', 'DIFDUP', 'FIX', 'SQZ', 'PAC'];
+    const encodingList: XYEncoding[] = ['FIX', 'PAC', 'SQZ', 'DIF', 'DIFDUP'];
     for (let xyEncoding of encodingList) {
       const jcamp = fromJSON(spectrum, { xyEncoding });
       const spectrumReaded = convert(jcamp);
@@ -60,13 +60,45 @@ describe('fromJSON', () => {
     }
   });
 
+  it('simple example to check xyEncoding', () => {
+    const spectrum = {
+      x: [0, 1, 2, 3, 4],
+      y: [0, 1, 2, 3, 4],
+    };
+
+    const fix = fromJSON(spectrum, { xyEncoding: 'FIX' })
+      .split('\n')
+      .slice(-2, -1);
+    expect(fix).toStrictEqual(['0 0 1 2 3 4']);
+
+    const pac = fromJSON(spectrum, { xyEncoding: 'PAC' })
+      .split('\n')
+      .slice(-2, -1);
+    expect(pac).toStrictEqual(['0+0+1+2+3+4']);
+
+    const sqz = fromJSON(spectrum, { xyEncoding: 'SQZ' })
+      .split('\n')
+      .slice(-2, -1);
+    expect(sqz).toStrictEqual(['0@ABCD']);
+
+    const dif = fromJSON(spectrum, { xyEncoding: 'DIF' })
+      .split('\n')
+      .slice(-3, -1);
+    expect(dif).toStrictEqual(['0@JJJJ', '4D']);
+
+    const difdup = fromJSON(spectrum, { xyEncoding: 'DIFDUP' })
+      .split('\n')
+      .slice(-3, -1);
+    expect(difdup).toStrictEqual(['0@JV', '4D']);
+  });
+
   it('create and read spectrum y in zeros differents xyEncoding', () => {
     const spectrum = {
       x: xAxis,
       y: yZeros,
     };
 
-    const encodingList: XYEncoding[] = ['DIF', 'DIFDUP', 'FIX', 'SQZ', 'PAC'];
+    const encodingList: XYEncoding[] = ['FIX', 'PAC', 'SQZ', 'DIF', 'DIFDUP'];
     for (let xyEncoding of encodingList) {
       const jcamp = fromJSON(spectrum, { xyEncoding });
       const spectrumReaded = convert(jcamp);
