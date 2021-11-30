@@ -1,9 +1,8 @@
 import { DataXY } from 'cheminfo-types';
 
-// @ts-expect-error
 import { JcampOptions } from './JcampOptions';
-import { ensureYInteger } from './utils/ensureInteger';
 import { addInfoData } from './utils/addInfoData';
+import { ensureInteger } from './utils/ensureInteger';
 import { peakTableCreator } from './utils/peakTableCreator';
 import { xyDataCreator } from './utils/xyDataCreator';
 
@@ -33,8 +32,8 @@ export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
     dataType = '',
     xUnits = '',
     yUnits = '',
-    xFactor = 1,
-    yFactor = 1,
+    xFactor,
+    yFactor,
   } = info;
 
   data = { x: data.x, y: data.y };
@@ -55,12 +54,26 @@ export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
   // we leave the header and utf8 fonts ${header.replace(/[^\t\n\x20-\x7F]/g, '')
 
   if (xyEncoding) {
-    yFactor = ensureYInteger(data, { yFactor });
-
+    let ensuredX = ensureInteger(data.x, { factor: xFactor });
+    data.x = ensuredX.array;
+    xFactor = ensuredX.factor;
+    let ensuredY = ensureInteger(data.y, { factor: yFactor });
+    data.y = ensuredY.array;
+    yFactor = ensuredY.factor;
     return `${header}##NPOINTS=${data.x.length}
 ${xyDataCreator(data, { info: { xFactor, yFactor }, xyEncoding }).join('\n')}
 ##END=`;
   } else {
+    if (xFactor === undefined) xFactor = 1;
+    if (yFactor === undefined) yFactor = 1;
+    if (xFactor !== 1) {
+      // @ts-expect-error
+      data.x = data.x.map((value) => value / xFactor);
+    }
+    if (yFactor !== 1) {
+      // @ts-expect-error
+      data.y = data.y.map((value) => value / yFactor);
+    }
     return `${header}##NPOINTS=${data.x.length}
 ${peakTableCreator(data, { info: { xFactor, yFactor } }).join('\n')}
 ##END=`;

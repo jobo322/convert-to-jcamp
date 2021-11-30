@@ -32,12 +32,12 @@ export interface JcampInfo extends Record<string, any> {
    */
   yUnits?: string;
   /**
-   * factor to multiply X values
+   * factor to multiply X values after parsing, this means that during encoding we will divide all the X values by the factor
    * @default 1
    */
   xFactor?: number;
   /**
-   * factor to multiply Y values
+   * factor to multiply Y values after parsing, this means that during encoding we will divide all the Y values by the factor
    * @default 1
    */
   yFactor?: number;
