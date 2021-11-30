@@ -25,7 +25,7 @@ export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
   lines.push('##XYDATA=(X++(Y..Y))');
 
   let line = encode(
-    rescale(data.y, yFactor),
+    rescaleAndEnsureInteger(data.y, yFactor),
     firstX / xFactor,
     deltaX / xFactor,
     xyEncoding,
@@ -34,12 +34,11 @@ export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
   return lines;
 }
 
-function rescale(data: DoubleArray, factor: number) {
+function rescaleAndEnsureInteger(data: DoubleArray, factor: number) {
+  if (factor === 1) return data.map((value) => Math.round(value));
   const result = data.slice();
-  if (factor !== 1) {
-    for (let i = 0; i < result.length; i++) {
-      result[i] /= factor;
-    }
+  for (let i = 0; i < result.length; i++) {
+    result[i] = Math.round(result[i] / factor);
   }
   return result;
 }

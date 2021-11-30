@@ -2,7 +2,7 @@ import { DataXY } from 'cheminfo-types';
 
 import { JcampOptions } from './JcampOptions';
 import { addInfoData } from './utils/addInfoData';
-import { ensureInteger } from './utils/ensureInteger';
+import { getBestFactor } from './utils/getBestFactor';
 import { peakTableCreator } from './utils/peakTableCreator';
 import { xyDataCreator } from './utils/xyDataCreator';
 
@@ -54,12 +54,8 @@ export function fromJSON(data: DataXY, options: JcampOptions = {}): string {
   // we leave the header and utf8 fonts ${header.replace(/[^\t\n\x20-\x7F]/g, '')
 
   if (xyEncoding) {
-    let ensuredX = ensureInteger(data.x, { factor: xFactor });
-    data.x = ensuredX.array;
-    xFactor = ensuredX.factor;
-    let ensuredY = ensureInteger(data.y, { factor: yFactor });
-    data.y = ensuredY.array;
-    yFactor = ensuredY.factor;
+    xFactor = getBestFactor(data.x, { factor: xFactor });
+    yFactor = getBestFactor(data.y, { factor: yFactor });
     return `${header}##NPOINTS=${data.x.length}
 ${xyDataCreator(data, { info: { xFactor, yFactor }, xyEncoding }).join('\n')}
 ##END=`;
