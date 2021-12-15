@@ -42,21 +42,21 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
-    "eslint": "^8.3.0",
+    "eslint": "^8.4.1",
     "eslint-config-cheminfo-typescript": "^10.2.4",
     "esm": "^3.2.25",
-    "jcampconverter": "^8.2.2",
-    "jest": "^27.3.1",
+    "jcampconverter": "^8.2.4",
+    "jest": "^27.4.5",
     "jest-matcher-deep-close-to": "^3.0.2",
-    "prettier": "^2.5.0",
+    "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.0.7",
-    "typescript": "^4.5.2"
+    "ts-jest": "^27.1.1",
+    "typescript": "^4.5.4"
   },
   "dependencies": {
-    "cheminfo-types": "^0.8.0",
+    "cheminfo-types": "^0.9.1",
     "ml-array-max": "^1.2.3",
     "ml-array-min": "^1.2.2",
-    "ml-spectra-processing": "^6.8.0"
+    "ml-spectra-processing": "^8.0.3"
   }
 }

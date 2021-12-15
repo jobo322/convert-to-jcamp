@@ -1,5 +1,4 @@
 import { MeasurementXYVariables } from 'cheminfo-types';
-// @ts-expect-error
 import { convert } from 'jcampconverter';
 
 import { fromVariables } from '..';

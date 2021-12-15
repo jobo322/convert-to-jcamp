@@ -1,5 +1,4 @@
 import { DoubleArray } from 'cheminfo-types';
-// @ts-expect-error
 import { xMinMaxValues } from 'ml-spectra-processing';
 
 export function getBestFactor(
