@@ -1,8 +1,9 @@
 import { DataXY, DoubleArray } from 'cheminfo-types';
 
 import { JcampOptions } from '../JcampOptions';
+import { rescale } from './rescale';
 
-import { encode } from './vectorEncoder';
+import { vectorEncoder } from './vectorEncoder';
 
 export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
   const { xyEncoding = 'DIF' } = options;
@@ -24,7 +25,7 @@ export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
   lines.push(`##YFACTOR=${yFactor}`);
   lines.push('##XYDATA=(X++(Y..Y))');
 
-  let line = encode(
+  let line = vectorEncoder(
     rescale(data.y, yFactor),
     firstX / xFactor,
     deltaX / xFactor,
@@ -32,14 +33,4 @@ export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
   );
   if (line) lines.push(line);
   return lines;
-}
-
-function rescale(data: DoubleArray, factor: number) {
-  const result = data.slice();
-  if (factor !== 1) {
-    for (let i = 0; i < result.length; i++) {
-      result[i] /= factor;
-    }
-  }
-  return result;
 }

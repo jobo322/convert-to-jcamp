@@ -414,4 +414,31 @@ describe('fromVariables', () => {
       data: { x: [1, 2, 3, 4], y: [2, 3, 4, 5] },
     });
   });
+  it.only('from Z matrix', async () => {
+    const variables = {
+      x: {
+        data: [0,1,2,3,4],
+        label: 'x',
+        units: 'ppm',
+        isDependent: false,
+        min: 0,
+        max: 10,
+      },
+      y: {
+        data: [1,2],
+        label: 'y',
+        units: 'ppm',
+        isDependent: false,
+      },
+      z: {
+        data: [ [2, 3, 4, 5, 7], [ 1,2,3,4,5] ],
+        label: 'z',
+        units: 'arbitrary',
+        isDependent: true,
+      },
+    };
+
+    const jcamp = fromVariables(variables, { is2D: true, isNMR: true, isXYData: true, meta: { sfo2: 100, sfo1: 400}});
+    console.log(jcamp)
+  })
 });

@@ -64,4 +64,12 @@ export interface JcampOptions {
    * @default ''
    */
   xyEncoding?: XYEncoding;
+  /**
+   * defines if the data type is focus on nuclear magnetic resonance
+   * @default false
+   */
+  isNMR?: boolean;
+  isXYData?: boolean;
+  is2D?: boolean;
+  isPeakData?: boolean;
 }
