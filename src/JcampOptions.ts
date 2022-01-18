@@ -32,12 +32,12 @@ export interface JcampInfo extends Record<string, any> {
    */
   yUnits?: string;
   /**
-   * factor to multiply X values after parsing, this means that during encoding we will divide all the X values by the factor
+   * factor to multiply X values
    * @default 1
    */
   xFactor?: number;
   /**
-   * factor to multiply Y values after parsing, this means that during encoding we will divide all the Y values by the factor
+   * factor to multiply Y values
    * @default 1
    */
   yFactor?: number;
@@ -64,4 +64,12 @@ export interface JcampOptions {
    * @default ''
    */
   xyEncoding?: XYEncoding;
+  /**
+   * defines if the data type is focus on nuclear magnetic resonance
+   * @default false
+   */
+  isNMR?: boolean;
+  isXYData?: boolean;
+  is2D?: boolean;
+  isPeakData?: boolean;
 }

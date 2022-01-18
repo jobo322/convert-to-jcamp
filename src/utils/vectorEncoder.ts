@@ -29,11 +29,11 @@ const maxLinelength = 100;
  * @param xyEncoding: ('FIX','SQZ','DIF','DIFDUP','CVS','PAC') Default 'DIFDUP'
  * @return {string}
  */
-export function encode(
+export function vectorEncoder(
   data: DoubleArray,
   firstX: number,
   intervalX: number,
-  xyEncoding: string,
+  xyEncoding?: string,
 ) {
   switch (xyEncoding) {
     case 'FIX':

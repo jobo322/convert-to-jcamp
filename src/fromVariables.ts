@@ -1,15 +1,24 @@
-import { MeasurementXYVariables } from 'cheminfo-types';
+import {
+  DoubleArray,
+  MeasurementVariables,
+  MeasurementVariable,
+} from 'cheminfo-types';
 
 import { JcampOptions } from './JcampOptions';
 import creatorNtuples from './creatorNtuples';
 import { fromJSON } from './fromJSON';
+import { checkArray } from './utils/checkArray';
+
+export type MeasurementXYorZVariables = MeasurementVariables<
+  MeasurementVariable<DoubleArray[] | DoubleArray>
+>;
 
 /**
  * Create a jcamp from variables
  */
 export function fromVariables(
   /** object of variables */
-  variables: MeasurementXYVariables,
+  variables: MeasurementXYorZVariables,
   options: JcampOptions = {},
 ): string {
   const { info = {}, meta = {}, forceNtuples = false } = options;
@@ -52,7 +61,13 @@ export function fromVariables(
       jcampOptions.info.yUnits = yLabel;
     }
 
-    return fromJSON({ x: variables.x.data, y: variables.y.data }, jcampOptions);
+    const xData = variables.x.data;
+    const yData = variables.y.data;
+
+    checkArray(xData);
+    checkArray(yData);
+
+    return fromJSON({ x: xData, y: yData }, jcampOptions);
   } else {
     return creatorNtuples(variables, options);
   }
