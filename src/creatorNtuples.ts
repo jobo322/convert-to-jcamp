@@ -1,10 +1,13 @@
-import type { DoubleArray, OneLowerCase } from 'cheminfo-types';
+import type {
+  DoubleArray,
+  OneLowerCase,
+  MeasurementXYVariables,
+} from 'cheminfo-types';
 import isAnyArray from 'is-any-array';
 import maxFct from 'ml-array-max';
 import minFct from 'ml-array-min';
 
 import { JcampOptions } from './JcampOptions';
-import type { MeasurementXYorZVariables } from './fromVariables';
 import { addInfoData } from './utils/addInfoData';
 import { checkArray } from './utils/checkArray';
 import { checkMatrix } from './utils/checkMatrix';
@@ -18,7 +21,7 @@ import { vectorEncoder } from './utils/vectorEncoder';
  * @return JCAMP-DX text file corresponding to the variables
  */
 export default function creatorNtuples(
-  variables: MeasurementXYorZVariables,
+  variables: MeasurementXYVariables,
   options: JcampOptions,
 ): string {
   const { meta = {}, info = {}, xyEncoding = '' } = options;
@@ -61,7 +64,8 @@ export default function creatorNtuples(
     last.push(firstLast.last);
     max.push(firstLast.max);
     min.push(firstLast.min);
-    factor.push(variable.factor);
+    //@ts-expect-error it will be included
+    factor.push(variable.factor || 1);
 
     if (variable.isDependent !== undefined) {
       varType.push(variable.isDependent ? 'DEPENDENT' : 'INDEPENDENT');
@@ -288,7 +292,7 @@ function checkMandatoryParameters(meta: Record<string, any>) {
   const list = ['SFO1', 'SFO2', 'NUC1', 'NUC2'];
 
   for (const key of list) {
-    if (!meta.includes(key)) {
+    if (!meta[key]) {
       throw new Error(`${key} in options.meta should be defined`);
     }
   }
