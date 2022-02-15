@@ -185,7 +185,7 @@ describe('fromJSON', () => {
     });
     const spectrumReaded = convert(jcamp);
     const spectrumData = spectrumReaded.flatten[0].spectra[0].data;
-    expect(spectrumData.x).toBeDeepCloseTo(spectrum.x);
+    expect(spectrumData.x).toBeDeepCloseTo(spectrum.x, 1);
     expect(spectrumData.y).toBeDeepCloseTo(spectrum.y, 1);
   });
 });

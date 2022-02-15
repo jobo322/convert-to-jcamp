@@ -1,5 +1,5 @@
 import { DoubleArray } from 'cheminfo-types';
-import isAnyArray from 'is-any-array';
+import { isAnyArray } from 'is-any-array';
 
 export function checkMatrix(
   data: DoubleArray | DoubleArray[],

@@ -1,8 +1,8 @@
 import { DataXY } from 'cheminfo-types';
+import { xMultiply } from 'ml-spectra-processing';
 
 import { JcampOptions } from '../JcampOptions';
 
-import { rescale } from './rescale';
 import { vectorEncoder } from './vectorEncoder';
 
 export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
@@ -26,7 +26,7 @@ export function xyDataCreator(data: DataXY, options: JcampOptions = {}) {
   lines.push('##XYDATA=(X++(Y..Y))');
 
   let line = vectorEncoder(
-    rescale(data.y, yFactor),
+    xMultiply(data.y, 1 / yFactor),
     firstX / xFactor,
     deltaX / xFactor,
     xyEncoding,

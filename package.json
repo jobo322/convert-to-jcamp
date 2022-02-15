@@ -54,10 +54,10 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "cheminfo-types": "^0.9.1",
-    "is-any-array": "^1.0.1",
+    "cheminfo-types": "^0.10.0",
+    "is-any-array": "^2.0.0",
     "ml-array-max": "^1.2.3",
     "ml-array-min": "^1.2.2",
-    "ml-spectra-processing": "^8.0.3"
+    "ml-spectra-processing": "^9.1.0"
   }
 }

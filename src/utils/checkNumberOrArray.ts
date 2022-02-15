@@ -1,7 +1,7 @@
 import { DoubleArray } from 'cheminfo-types';
-import isAnyArray from 'is-any-array';
+import { isAnyArray } from 'is-any-array';
 
-export function checkArray(
+export function checkNumberOrArray(
   data: DoubleArray | DoubleArray[],
 ): asserts data is DoubleArray {
   if (!isAnyArray(data) || isAnyArray(data[0])) {
