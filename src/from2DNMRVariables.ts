@@ -8,7 +8,7 @@ import {
   DoubleMatrix,
   matrixMinMaxZ,
   xMinMaxValues,
-  xMultiply,
+  xDivide,
 } from 'ml-spectra-processing';
 
 import { JcampOptions } from './JcampOptions';
@@ -161,7 +161,7 @@ export function from2DNMRVariables(
     header += `##FIRST=  ${firstData.join()}\n`;
     header += `##DATA TABLE= (${directSymbol}++(Y..Y)), PROFILE\n`;
     header += vectorEncoder(
-      xMultiply(zData[index], 1 / zFactor),
+      xDivide(zData[index], zFactor, { output: zData[index] }),
       firstX / xFactor,
       deltaX / xFactor,
       xyEncoding,

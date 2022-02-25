@@ -1,7 +1,7 @@
 import type { OneLowerCase, MeasurementXYVariables } from 'cheminfo-types';
 import maxFct from 'ml-array-max';
 import minFct from 'ml-array-min';
-import { xMultiply } from 'ml-spectra-processing';
+import { xDivide } from 'ml-spectra-processing';
 
 import { JcampOptions } from './JcampOptions';
 import { addInfoData } from './utils/addInfoData';
@@ -119,7 +119,7 @@ export default function creatorNtuples(
             key === 'r' ? 'R..R' : 'I..I'
           })), XYDATA\n`;
           header += vectorEncoder(
-            xMultiply(variable.data, 1 / yFactor),
+            xDivide(variable.data, yFactor, { output: variable.data }),
             firstX / xFactor,
             deltaX / xFactor,
             xyEncoding,
