@@ -40,5 +40,3 @@ export function getBestFactorMatrix(
   const extremeValues = minMax || matrixMinMaxZ(matrix);
   return getFactorNumber(extremeValues, maxValue);
 }
-
-
