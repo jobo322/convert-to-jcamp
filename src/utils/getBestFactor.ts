@@ -1,6 +1,9 @@
 import { DoubleArray } from 'cheminfo-types';
 import { xMinMaxValues } from 'ml-spectra-processing';
 
+import { getFactorNumber } from './getFactorNumber';
+import { MinMax } from './minMax';
+
 export function getBestFactor(
   array: DoubleArray,
   options: {
@@ -8,13 +11,13 @@ export function getBestFactor(
     /**
      * The maximum absolute value
      */ maxValue?: number;
+    minMax?: MinMax;
   } = {},
 ): number {
-  const maxValue =
-    options.maxValue === undefined ? 2 ** 31 - 1 : Math.abs(options.maxValue);
+  const { maxValue, factor, minMax } = options;
 
-  if (options.factor !== undefined) {
-    return options.factor;
+  if (factor !== undefined) {
+    return factor;
   }
 
   // is there non integer number ?
@@ -30,16 +33,6 @@ export function getBestFactor(
   }
   // we need to rescale the values
   // need to find the max and min values
-  const minMax = xMinMaxValues(array);
-  let factor: number;
-  if (minMax.min < 0) {
-    if (minMax.max > 0) {
-      factor = Math.max(-minMax.min, minMax.max) / maxValue;
-    } else {
-      factor = -minMax.min / maxValue;
-    }
-  } else {
-    factor = minMax.max / maxValue;
-  }
-  return factor;
+  const extremeValues = minMax || xMinMaxValues(array);
+  return getFactorNumber(extremeValues, maxValue);
 }
