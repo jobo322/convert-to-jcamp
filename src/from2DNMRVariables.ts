@@ -4,13 +4,20 @@ import type {
   MeasurementXYVariables,
 } from 'cheminfo-types';
 import { isAnyArray } from 'is-any-array';
-import maxFct from 'ml-array-max';
-import minFct from 'ml-array-min';
+import {
+  DoubleMatrix,
+  matrixMinMaxZ,
+  xMinMaxValues,
+  xMultiply,
+} from 'ml-spectra-processing';
 
 import { JcampOptions } from './JcampOptions';
 import { addInfoData } from './utils/addInfoData';
 import { checkMatrix } from './utils/checkMatrix';
 import { checkNumberOrArray } from './utils/checkNumberOrArray';
+import { getBestFactor } from './utils/getBestFactor';
+import { getBestFactorMatrix } from './utils/getBestFactorMatrix';
+import { MinMax } from './utils/minMax';
 import { vectorEncoder } from './utils/vectorEncoder';
 
 /**
@@ -36,26 +43,26 @@ export function from2DNMRVariables(
   const max = [];
   const factor = [];
 
-  const keys = Object.keys(variables) as OneLowerCase[];
+  const keys = ['y', 'x', 'z'] as OneLowerCase[];
 
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     let variable = variables[key];
-    if (!variable) continue;
+    if (!variable) throw new Error('variables x, y and z are mandatory');
 
     let name = variable?.label.replace(/ *\[.*/, '');
     let unit = variable?.label.replace(/.*\[(?<units>.*)\].*/, '$<units>');
 
-    const firstLast = getFirstLast(variable.data);
+    const { firstLast, minMax } = getFirstLast(variable.data);
     symbol.push(variable.symbol || key);
     varName.push(name || key);
     varDim.push(variable.data.length);
     first.push(firstLast.first);
     last.push(firstLast.last);
-    max.push(firstLast.max);
-    min.push(firstLast.min);
+    max.push(minMax.max);
+    min.push(minMax.min);
     //@ts-expect-error it will be included
-    factor.push(variable.factor || 1);
+    factor.push(variable.factor || calculateFactor(variable.data, minMax));
 
     if (variable.isDependent !== undefined) {
       varType.push(variable.isDependent ? 'DEPENDENT' : 'INDEPENDENT');
@@ -142,12 +149,23 @@ export function from2DNMRVariables(
   firstData[direct] = firstX * sfo1;
   firstData[indirect] = firstY;
 
+  const yFactor = factor[indirect];
+  const xFactor = factor[direct];
+  const zFactor = factor[dependent];
+
   for (let index = 0; index < zData.length; index++) {
     firstData[dependent] = zData[index][0];
-    header += `##PAGE= ${indirectSymbol}=${firstY + deltaY * index}\n`;
+    header += `##PAGE= ${indirectSymbol}=${
+      (firstY + deltaY * index) / yFactor
+    }\n`;
     header += `##FIRST=  ${firstData.join()}\n`;
     header += `##DATA TABLE= (${directSymbol}++(Y..Y)), PROFILE\n`;
-    header += vectorEncoder(zData[index], firstX, deltaX, xyEncoding);
+    header += vectorEncoder(
+      xMultiply(zData[index], 1 / zFactor),
+      firstX / xFactor,
+      deltaX / xFactor,
+      xyEncoding,
+    );
     header += '\n';
   }
 
@@ -159,33 +177,22 @@ function getFirstLast(data: DoubleArray | DoubleArray[]) {
     checkMatrix(data);
     const firstRow = data[0];
     return {
-      first: firstRow[0],
-      last: data[data.length - 1][data[0].length - 1],
-      ...getMinMax(data),
+      firstLast: {
+        first: firstRow[0],
+        last: data[data.length - 1][data[0].length - 1],
+      },
+      minMax: matrixMinMaxZ(data),
     };
   } else {
     checkNumberOrArray(data);
     return {
-      first: data[0],
-      last: data[data.length - 1],
-      min: minFct(data),
-      max: maxFct(data),
+      firstLast: {
+        first: data[0],
+        last: data[data.length - 1],
+      },
+      minMax: xMinMaxValues(data),
     };
   }
-}
-
-function getMinMax(data: DoubleArray[]) {
-  const minOfRows = new Float64Array(data.length - 1);
-  const maxOfRows = new Float64Array(data.length - 1);
-  for (let i = 0; i < data.length - 1; i++) {
-    minOfRows[i] = minFct(data[i]);
-    maxOfRows[i] = maxFct(data[i]);
-  }
-
-  return {
-    min: minFct(minOfRows),
-    max: maxFct(maxOfRows),
-  };
 }
 
 function scaleAndJoin(
@@ -228,4 +235,10 @@ function checkMandatoryParameters(meta: Record<string, any>) {
       throw new Error(`${key} in options.meta should be defined`);
     }
   }
+}
+
+function calculateFactor(data: DoubleArray | DoubleMatrix, minMax: MinMax) {
+  return isAnyArray(data[0])
+    ? getBestFactorMatrix(data as DoubleMatrix, { minMax })
+    : getBestFactor(data as DoubleArray, { minMax });
 }
