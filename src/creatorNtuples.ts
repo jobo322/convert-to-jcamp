@@ -1,11 +1,10 @@
 import type { OneLowerCase, MeasurementXYVariables } from 'cheminfo-types';
-import maxFct from 'ml-array-max';
-import minFct from 'ml-array-min';
 import { xDivide } from 'ml-spectra-processing';
 
 import { JcampOptions } from './JcampOptions';
 import { addInfoData } from './utils/addInfoData';
 import { checkNumberOrArray } from './utils/checkNumberOrArray';
+import { getExtremeValues } from './utils/getExtremeValues';
 import { vectorEncoder } from './utils/vectorEncoder';
 
 /**
@@ -49,13 +48,14 @@ export default function creatorNtuples(
     let name = variable?.label.replace(/ *\[.*/, '');
     let unit = variable?.label.replace(/.*\[(?<units>.*)\].*/, '$<units>');
 
+    const { firstLast, minMax } = getExtremeValues(variable.data);
     symbol.push(variable.symbol || key);
     varName.push(name || key);
     varDim.push(variable.data.length);
-    first.push(variable.data[0]);
-    last.push(variable.data[variable.data.length - 1]);
-    max.push(maxFct(variable.data));
-    min.push(minFct(variable.data));
+    first.push(firstLast.first);
+    last.push(firstLast.last);
+    max.push(minMax.max);
+    min.push(minMax.min);
 
     if (variable.isDependent !== undefined) {
       varType.push(variable.isDependent ? 'DEPENDENT' : 'INDEPENDENT');

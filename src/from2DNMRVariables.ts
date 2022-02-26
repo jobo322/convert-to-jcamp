@@ -6,9 +6,6 @@ import type {
 import { isAnyArray } from 'is-any-array';
 import {
   DoubleMatrix,
-  matrixMinMaxZ,
-  xMinMaxValues,
-  xDivide,
 } from 'ml-spectra-processing';
 
 import { JcampOptions } from './JcampOptions';
@@ -17,7 +14,9 @@ import { checkMatrix } from './utils/checkMatrix';
 import { checkNumberOrArray } from './utils/checkNumberOrArray';
 import { getBestFactor } from './utils/getBestFactor';
 import { getBestFactorMatrix } from './utils/getBestFactorMatrix';
+import { getExtremeValues } from './utils/getExtremeValues';
 import { MinMax } from './utils/minMax';
+import { rescaleAndEnsureInteger } from './utils/rescaleAndEnsureInteger';
 import { vectorEncoder } from './utils/vectorEncoder';
 
 /**
@@ -53,7 +52,7 @@ export function from2DNMRVariables(
     let name = variable?.label.replace(/ *\[.*/, '');
     let unit = variable?.label.replace(/.*\[(?<units>.*)\].*/, '$<units>');
 
-    const { firstLast, minMax } = getFirstLast(variable.data);
+    const { firstLast, minMax } = getExtremeValues(variable.data);
     symbol.push(variable.symbol || key);
     varName.push(name || key);
     varDim.push(variable.data.length);
@@ -161,7 +160,7 @@ export function from2DNMRVariables(
     header += `##FIRST=  ${firstData.join()}\n`;
     header += `##DATA TABLE= (${directSymbol}++(Y..Y)), PROFILE\n`;
     header += vectorEncoder(
-      xDivide(zData[index], zFactor, { output: zData[index] }),
+      rescaleAndEnsureInteger(zData[index], zFactor),
       firstX / xFactor,
       deltaX / xFactor,
       xyEncoding,
@@ -170,29 +169,6 @@ export function from2DNMRVariables(
   }
 
   return header;
-}
-
-function getFirstLast(data: DoubleArray | DoubleArray[]) {
-  if (isAnyArray(data[0])) {
-    checkMatrix(data);
-    const firstRow = data[0];
-    return {
-      firstLast: {
-        first: firstRow[0],
-        last: data[data.length - 1][data[0].length - 1],
-      },
-      minMax: matrixMinMaxZ(data),
-    };
-  } else {
-    checkNumberOrArray(data);
-    return {
-      firstLast: {
-        first: data[0],
-        last: data[data.length - 1],
-      },
-      minMax: xMinMaxValues(data),
-    };
-  }
 }
 
 function scaleAndJoin(
