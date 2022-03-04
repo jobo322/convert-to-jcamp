@@ -1,9 +1,11 @@
 import type { OneLowerCase, MeasurementXYVariables } from 'cheminfo-types';
-import maxFct from 'ml-array-max';
-import minFct from 'ml-array-min';
+import { xDivide } from 'ml-spectra-processing';
 
 import { JcampOptions } from './JcampOptions';
 import { addInfoData } from './utils/addInfoData';
+import { checkNumberOrArray } from './utils/checkNumberOrArray';
+import { getExtremeValues } from './utils/getExtremeValues';
+import { vectorEncoder } from './utils/vectorEncoder';
 
 /**
  * Parse from a xyxy data array
@@ -15,9 +17,16 @@ export default function creatorNtuples(
   variables: MeasurementXYVariables,
   options: JcampOptions,
 ): string {
-  const { meta = {}, info = {} } = options;
+  const { meta = {}, info = {}, xyEncoding = '' } = options;
 
-  const { title = '', owner = '', origin = '', dataType = '' } = info;
+  const {
+    title = '',
+    owner = '',
+    origin = '',
+    dataType = '',
+    xFactor = 1,
+    yFactor = 1,
+  } = info;
 
   const symbol = [];
   const varName = [];
@@ -28,7 +37,6 @@ export default function creatorNtuples(
   const last = [];
   const min = [];
   const max = [];
-  const factor = [];
 
   const keys = Object.keys(variables) as OneLowerCase[];
 
@@ -40,9 +48,14 @@ export default function creatorNtuples(
     let name = variable?.label.replace(/ *\[.*/, '');
     let unit = variable?.label.replace(/.*\[(?<units>.*)\].*/, '$<units>');
 
+    const { firstLast, minMax } = getExtremeValues(variable.data);
     symbol.push(variable.symbol || key);
     varName.push(name || key);
     varDim.push(variable.data.length);
+    first.push(firstLast.first);
+    last.push(firstLast.last);
+    max.push(minMax.max);
+    min.push(minMax.min);
 
     if (variable.isDependent !== undefined) {
       varType.push(variable.isDependent ? 'DEPENDENT' : 'INDEPENDENT');
@@ -57,16 +70,12 @@ export default function creatorNtuples(
     }
 
     units.push(variable.units || unit || '');
-    first.push(variable.data[0]);
-    last.push(variable.data[variable.data.length - 1]);
-    min.push(minFct(variable.data));
-    max.push(maxFct(variable.data));
-    factor.push(1);
   }
 
   let header = `##TITLE=${title}
 ##JCAMP-DX=6.00
 ##DATA TYPE=${dataType}
+##DATA CLASS= NTUPLES
 ##ORIGIN=${origin}
 ##OWNER=${owner}\n`;
 
@@ -82,20 +91,57 @@ export default function creatorNtuples(
 ##VAR_TYPE=  ${varType.join()}
 ##VAR_DIM=   ${varDim.join()}
 ##UNITS=     ${units.join()}
-##PAGE= N=1\n`;
+##FIRST=     ${first.join()}
+##LAST=      ${last.join()}
+##MIN=       ${min.join()}
+##MAX=       ${max.join()}\n`;
 
-  header += `##DATA TABLE= (${symbol.join('')}..${symbol.join('')}), PEAKS\n`;
-
-  for (let i = 0; i < variables.x.data.length; i++) {
-    let point = [];
-    for (let key of keys) {
-      let variable = variables[key];
-      if (!variable) continue;
-      point.push(variable.data[i]);
+  if (options.isNMR) {
+    let xData = variables.x.data;
+    let yData = variables.y.data;
+    checkNumberOrArray(xData);
+    checkNumberOrArray(yData);
+    if (options.isPeakData) {
+      header += `##DATA TABLE= (XY..XY), PEAKS\n`;
+      for (let point = 0; point < varDim[0]; point++) {
+        header += `${xData[point]}, ${yData[point]}\n`;
+      }
+    } else if (options.isXYData) {
+      const firstX = xData[0];
+      const lastX = xData[xData.length - 1];
+      const deltaX = (lastX - firstX) / xData.length;
+      for (const key of ['r', 'i'] as Array<'r' | 'i'>) {
+        const variable = variables[key];
+        if (variable) {
+          checkNumberOrArray(variable.data);
+          header += `##PAGE= ${key === 'r' ? 1 : 2}\n`;
+          header += `##DATA TABLE= (X++(${
+            key === 'r' ? 'R..R' : 'I..I'
+          })), XYDATA\n`;
+          header += vectorEncoder(
+            xDivide(variable.data, yFactor, { output: variable.data }),
+            firstX / xFactor,
+            deltaX / xFactor,
+            xyEncoding,
+          );
+        }
+      }
     }
-    header += `${point.join('\t')}\n`;
+  } else {
+    header += `##PAGE= N=1\n`;
+    header += `##DATA TABLE= (${symbol.join('')}..${symbol.join('')}), PEAKS\n`;
+    for (let i = 0; i < variables.x.data.length; i++) {
+      let point = [];
+      for (let key of keys) {
+        let variable = variables[key];
+        if (!variable) continue;
+        point.push(variable.data[i]);
+      }
+      header += `${point.join('\t')}\n`;
+    }
   }
 
-  header += '##END';
+  header += `##NTUPLES= ${dataType}\n`;
+  header += '##END=';
   return header;
 }

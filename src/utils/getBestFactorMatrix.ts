@@ -1,11 +1,13 @@
-import { DoubleArray } from 'cheminfo-types';
-import { xMinMaxValues } from 'ml-spectra-processing';
+import { DoubleMatrix, matrixMinMaxZ } from 'ml-spectra-processing';
 
 import { getFactorNumber } from './getFactorNumber';
-import { MinMax } from './minMax';
 
-export function getBestFactor(
-  array: DoubleArray,
+interface MinMax {
+  min: number;
+  max: number;
+}
+export function getBestFactorMatrix(
+  matrix: DoubleMatrix,
   options: {
     factor?: number;
     /**
@@ -22,10 +24,12 @@ export function getBestFactor(
 
   // is there non integer number ?
   let onlyInteger = true;
-  for (let y of array) {
-    if (Math.round(y) !== y) {
-      onlyInteger = false;
-      break;
+  for (let row of matrix) {
+    for (let y of row) {
+      if (Math.round(y) !== y) {
+        onlyInteger = false;
+        break;
+      }
     }
   }
   if (onlyInteger) {
@@ -33,6 +37,6 @@ export function getBestFactor(
   }
   // we need to rescale the values
   // need to find the max and min values
-  const extremeValues = minMax || xMinMaxValues(array);
+  const extremeValues = minMax || matrixMinMaxZ(matrix);
   return getFactorNumber(extremeValues, maxValue);
 }

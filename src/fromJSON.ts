@@ -63,11 +63,11 @@ ${xyDataCreator(data, { info: { xFactor, yFactor }, xyEncoding }).join('\n')}
     if (xFactor === undefined) xFactor = 1;
     if (yFactor === undefined) yFactor = 1;
     if (xFactor !== 1) {
-      // @ts-expect-error
+      //@ts-expect-error xFactor is always defined
       data.x = data.x.map((value) => value / xFactor);
     }
     if (yFactor !== 1) {
-      // @ts-expect-error
+      //@ts-expect-error yFactor is always defined
       data.y = data.y.map((value) => value / yFactor);
     }
     return `${header}##NPOINTS=${data.x.length}
