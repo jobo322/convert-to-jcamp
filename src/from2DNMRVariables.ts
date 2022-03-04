@@ -4,9 +4,7 @@ import type {
   MeasurementXYVariables,
 } from 'cheminfo-types';
 import { isAnyArray } from 'is-any-array';
-import {
-  DoubleMatrix,
-} from 'ml-spectra-processing';
+import { DoubleMatrix } from 'ml-spectra-processing';
 
 import { JcampOptions } from './JcampOptions';
 import { addInfoData } from './utils/addInfoData';
