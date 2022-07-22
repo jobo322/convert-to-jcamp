@@ -98,10 +98,10 @@ export default function creatorNtuples(
 
   if (options.isNMR) {
     let xData = variables.x.data;
-    let yData = variables.y.data;
     checkNumberOrArray(xData);
-    checkNumberOrArray(yData);
     if (options.isPeakData) {
+      let yData = variables.y.data;
+    checkNumberOrArray(yData);
       header += `##DATA TABLE= (XY..XY), PEAKS\n`;
       for (let point = 0; point < varDim[0]; point++) {
         header += `${xData[point]}, ${yData[point]}\n`;
@@ -114,7 +114,7 @@ export default function creatorNtuples(
         const variable = variables[key];
         if (variable) {
           checkNumberOrArray(variable.data);
-          header += `##PAGE= ${key === 'r' ? 1 : 2}\n`;
+          header += `##PAGE= N=${key === 'r' ? 1 : 2}\n`;
           header += `##DATA TABLE= (X++(${
             key === 'r' ? 'R..R' : 'I..I'
           })), XYDATA\n`;
